@@ -1,0 +1,34 @@
+version: '3'
+
+tasks:
+  
+  build:
+    cmds:
+      - meson setup build --reconfigure --buildtype=release --prefix=$(pwd)
+      - ninja -C build install
+    silent: true
+    desc: "Build the project"
+
+  install:
+    preconditions:
+      - test -d dist
+    cmds:
+      - sudo cp ./dist/shared/*.so ./dist/static/*.a /usr/lib/
+    silent: true
+    desc: "Install library on the system"
+    prompt: "Do you want install in (/usr/lib/)"
+
+  clean:
+    cmds:
+      - rm -rf build
+    silent: true
+    desc: "Clean build directory"
+
+  fclean:
+      deps:
+        - clean
+      cmds:
+        - rm -rf dist
+      silent: true
+      desc: "Full clean remove build directory and dist directory"
+      prompt: "Do you want remove (build, dist)"
