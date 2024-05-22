@@ -12,7 +12,7 @@ tasks:
 
   build:
     preconditions:
-      - sh: "test ! -d dist"
+      - sh: '{{if eq OS "windows"}} cmd.exe /c "WINDOWS" else "test ! -d dist"'
         msg: "Nothing to be done."
     cmds:
       - meson setup build --buildtype=release --prefix=$(pwd)
