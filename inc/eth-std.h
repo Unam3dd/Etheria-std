@@ -24,6 +24,7 @@ typedef signed int          eth_int32_t;
 typedef signed short        eth_int16_t;
 typedef signed char         eth_int8_t;
 
+#if !defined(_MSC_VER)
 typedef signed              eth_int_128_t   __attribute__ ((vector_size(16)));
 typedef signed long long    eth_int64_128_t __attribute__ ((vector_size(16), aligned(8)));
 typedef signed int          eth_int32_128_t __attribute__ ((vector_size(16), aligned(4)));
@@ -41,13 +42,14 @@ typedef signed long long    eth_int64_512_t __attribute__ ((vector_size(64), ali
 typedef signed int          eth_int32_512_t __attribute__ ((vector_size(64), aligned(4)));
 typedef signed short        eth_int16_512_t __attribute__ ((vector_size(64), aligned(2)));
 typedef signed char         eth_int8_512_t  __attribute__ ((vector_size(64), aligned(1)));
-
+#endif
 
 typedef unsigned long long    eth_uint64_t;
 typedef unsigned int          eth_uint32_t;
 typedef unsigned short        eth_uint16_t;
 typedef unsigned char         eth_uint8_t;
 
+#if !defined(_MSC_VER)
 typedef unsigned              eth_uint_128_t   __attribute__ ((vector_size(16)));
 typedef unsigned long long    eth_uint64_128_t __attribute__ ((vector_size(16), aligned(8)));
 typedef unsigned int          eth_uint32_128_t __attribute__ ((vector_size(16), aligned(4)));
@@ -65,12 +67,18 @@ typedef unsigned long long    eth_uint64_512_t __attribute__ ((vector_size(64), 
 typedef unsigned int          eth_uint32_512_t __attribute__ ((vector_size(64), aligned(4)));
 typedef unsigned short        eth_uint16_512_t __attribute__ ((vector_size(64), aligned(2)));
 typedef unsigned char         eth_uint8_512_t  __attribute__ ((vector_size(64), aligned(1)));
+#endif
 
 typedef unsigned char   u8_t;
 typedef unsigned short  u16_t;
 typedef unsigned int    u32_t;
 typedef unsigned long   u64_t;
+
+#if defined(__linux__)
 typedef unsigned long   size_t;
+#else
+typedef unsigned long long size_t;
+#endif
 
 ///////////////////////////////////////
 //

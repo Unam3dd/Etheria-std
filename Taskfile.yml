@@ -12,7 +12,7 @@ tasks:
 
   build:
     preconditions:
-      - sh: '{{if eq OS "windows"}} cmd.exe /c "WINDOWS" else "test ! -d dist"'
+      - sh: '{{if eq OS "windows"}} cmd.exe /c echo "WINDOWS" {{else}} "test ! -d dist" {{end}}'
         msg: "Nothing to be done."
     cmds:
       - meson setup build --buildtype=release --prefix=$(pwd)
@@ -35,6 +35,7 @@ tasks:
     desc: "Build tests files"
 
   install:
+    platforms: ["linux"]
     preconditions:
       - test -d dist
     cmds:
@@ -47,6 +48,7 @@ tasks:
     prompt: "Do you want install in (/usr/lib/)"
 
   rm_install:
+    platforms: ["linux"]
     preconditions:
       - test -f /usr/lib/libetheria-std.a
       - test -f /usr/lib/libetheria-std.so
@@ -60,14 +62,14 @@ tasks:
 
   clean-test:
     cmds:
-      - rm -rf ./tests/output/
+      - '{{if eq OS "windows"}} cmd.exe /c rmdir ./tests/output/ /S /Q {{else}} rm -rf ./tests/output/{{end}}'
     silent: true
     desc: "Clean tests output directory"
 
   clean:
     cmds:
-      - rm -rf build
-      - echo -e "[\033[32m+\033[00m] clean \033[32mbuild\033[00m directory removed \033[32msuccessully\033[00m !"
+      - '{{if eq OS "windows" }} cmd.exe /c rmdir build /S /Q {{else}} rm -rf build {{end}}'
+      - '{{if eq OS "windows" }} cmd.exe /c echo clean build directory removed {{else}} echo -e "[\033[32m+\033[00m] clean \033[32mbuild\033[00m directory removed \033[32msuccessully\033[00m !" {{end}}'
     silent: true
     desc: "Clean build directory"
 
@@ -75,7 +77,8 @@ tasks:
       deps:
         - clean
       cmds:
-        - rm -rf dist
-        - echo -e "[\033[32m+\033[00m] clean \033[32mdist\033[00m directory removed \033[32msuccessully\033[00m !"
+        - cmd: '{{if eq OS "windows"}} cmd.exe /c rmdir dist /S /Q {{else}} rm -rf dist {{end}}'
+          ignore_error: true
+        - '{{if eq OS "windows"}} cmd.exe /c echo clean dist directory removed ! {{else}} echo -e "[\033[32m+\033[00m] clean \033[32mdist\033[00m directory removed \033[32msuccessully\033[00m !"{{end}}'
       silent: true
       desc: "Full clean remove build directory and dist directory"
