@@ -1,7 +1,6 @@
 version: '3'
 
 tasks:
-  
   build:
     cmds:
       - meson setup build --reconfigure --buildtype=release --prefix=$(pwd)
@@ -14,13 +13,27 @@ tasks:
       - test -d dist
     cmds:
       - sudo cp ./dist/shared/*.so ./dist/static/*.a /usr/lib/
+      - echo -e "[\033[32m+\033[00m] Installed successfully at \033[32m/usr/lib/\033[00m !"
     silent: true
     desc: "Install library on the system"
     prompt: "Do you want install in (/usr/lib/)"
 
+  rm_install:
+    preconditions:
+      - test -f /usr/lib/libetheria-std.a
+      - test -f /usr/lib/libetheria-std.so
+    cmds:
+      - sudo rm -rf /usr/lib/libetheria-std.a /usr/lib/libetheria-std.so
+      - echo -e "[\033[32m+\033[00m] Removed successfully !"
+    silent: true
+    desc: "Remove installed etheria Standard library on the system"
+    prompt: "Do you want remove etheria-std library"
+
   clean:
     cmds:
       - rm -rf build
+      - echo -e "[\033[32m+\033[00m] clean \033[32mbuild\033[00m directory..."
+      - echo -e "[\033[32m+\033[00m] clean \033[32mbuild\033[00m directory removed \033[32msuccessully\033[00m !"
     silent: true
     desc: "Clean build directory"
 
@@ -29,6 +42,8 @@ tasks:
         - clean
       cmds:
         - rm -rf dist
+        - echo -e "[\033[32m+\033[00m] clean \033[32mdist\033[00m directory..."
+        - echo -e "[\033[32m+\033[00m] clean \033[32mdist\033[00m directory removed \033[32msuccessully\033[00m !"
       silent: true
       desc: "Full clean remove build directory and dist directory"
       prompt: "Do you want remove (build, dist)"
