@@ -7,10 +7,10 @@
 
 #include "eth-std.h"
 
-Test(memcpy_naive_stack_aligned_small_tests, memcpy_naive_stack_aligned_mid_one)
+Test(memcpy_naive_stack_aligned_mid_tests, memcpy_naive_stack_aligned_small_one)
 {
-    char    buf[0x200];
-    char    src[0x200];
+    char    buf[0x8];
+    char    src[0x8];
 
     memset(src, 'a', sizeof(src));
 
@@ -18,90 +18,90 @@ Test(memcpy_naive_stack_aligned_small_tests, memcpy_naive_stack_aligned_mid_one)
     cr_assert(!memcmp(buf, src, sizeof(buf)));
 }
 
-Test(memcpy_naive_stack_aligned_small_tests, memcpy_naive_stack_aligned_mid_two)
+Test(memcpy_naive_stack_aligned_mid_tests, memcpy_naive_stack_aligned_small_two)
 {
-    char    buf[0x400];
-    char    src[0x400];
+    char    buf[0x10];
+    char    src[0x10];
 
     memset(src, 'a', sizeof(src));
     cr_assert(_eth_memcpy_naive(buf, src, sizeof(src)) == buf);
     cr_assert(!memcmp(buf, src, sizeof(buf)));
 }
 
-Test(memcpy_naive_stack_aligned_small_tests, memcpy_naive_stack_aligned_mid_three)
+Test(memcpy_naive_stack_aligned_mid_tests, memcpy_naive_stack_aligned_small_three)
 {
-    char    buf[0x800];
-    char    src[0x800];
+    char    buf[0x20];
+    char    src[0x20];
 
     memset(src, 'a', sizeof(src));
     cr_assert(_eth_memcpy_naive(buf, src, sizeof(src)) == buf);
     cr_assert(!memcmp(buf, src, sizeof(buf)));
 }
 
-Test(memcpy_naive_stack_aligned_small_tests, memcpy_naive_stack_aligned_mid_four)
+Test(memcpy_naive_stack_aligned_mid_tests, memcpy_naive_stack_aligned_small_four)
 {
-    char    buf[0x1000];
-    char    src[0x1000];
+    char    buf[0x40];
+    char    src[0x40];
 
     memset(src, 'a', sizeof(src));
     cr_assert(_eth_memcpy_naive(buf, src, sizeof(src)) == buf);
     cr_assert(!memcmp(buf, src, sizeof(buf)));
 }
 
-Test(memcpy_naive_stack_aligned_small_tests, memcpy_naive_stack_aligned_mid_five)
+Test(memcpy_naive_stack_aligned_mid_tests, memcpy_naive_stack_aligned_small_five)
 {
-    char    buf[0x2000];
-    char    src[0x2000];
+    char    buf[0x50];
+    char    src[0x50];
 
     memset(src, 'a', sizeof(src));
     cr_assert(_eth_memcpy_naive(buf, src, sizeof(src)) == buf);
     cr_assert(!memcmp(buf, src, sizeof(buf)));
 }
 
-Test(memcpy_naive_stack_aligned_small_tests, memcpy_naive_stack_aligned_mid_six)
+Test(memcpy_naive_stack_aligned_mid_tests, memcpy_naive_stack_aligned_small_six)
 {
-    char    buf[0x4000];
-    char    src[0x4000];
+    char    buf[0x60];
+    char    src[0x60];
 
     memset(src, 'a', sizeof(src));
     cr_assert(_eth_memcpy_naive(buf, src, sizeof(src)) == buf);
     cr_assert(!memcmp(buf, src, sizeof(buf)));
 }
 
-Test(memcpy_naive_stack_aligned_small_tests, memcpy_naive_stack_aligned_mid_seven)
+Test(memcpy_naive_stack_aligned_mid_tests, memcpy_naive_stack_aligned_small_seven)
 {
-    char    buf[0x6000];
-    char    src[0x6000];
+    char    buf[0x70];
+    char    src[0x70];
 
     memset(src, 'a', sizeof(src));
     cr_assert(_eth_memcpy_naive(buf, src, sizeof(src)) == buf);
     cr_assert(!memcmp(buf, src, sizeof(buf)));
 }
 
-Test(memcpy_naive_stack_aligned_small_tests, memcpy_naive_stack_aligned_mid_eight)
+Test(memcpy_naive_stack_aligned_mid_tests, memcpy_naive_stack_aligned_small_eight)
 {
-    char    buf[0x8000];
-    char    src[0x8000];
+    char    buf[0x80];
+    char    src[0x80];
 
     memset(src, 'a', sizeof(src));
     cr_assert(_eth_memcpy_naive(buf, src, sizeof(src)) == buf);
     cr_assert(!memcmp(buf, src, sizeof(buf)));
 }
 
-Test(memcpy_naive_stack_aligned_small_tests, memcpy_naive_stack_aligned_mid_nine)
+Test(memcpy_naive_stack_aligned_mid_tests, memcpy_naive_stack_aligned_small_nine)
 {
-    char    buf[0xFFFF];
-    char    src[0xFFFF];
+    char    buf[0x90];
+    char    src[0x90];
 
     memset(src, 'a', sizeof(src));
     cr_assert(_eth_memcpy_naive(buf, src, sizeof(src)) == buf);
     cr_assert(!memcmp(buf, src, sizeof(buf)));
 }
 
-Test(memcpy_naive_stack_aligned_small_tests, memcpy_naive_stack_aligned_mid_ten)
+Test(memcpy_naive_stack_aligned_mid_tests, memcpy_naive_stack_aligned_small_ten)
 {
-    char    buf[0x10000];
-    char    src[0x10000];
+    char    buf[0x100];
+    char    src[0x100];
 
     memset(src, 'a', sizeof(src));
     cr_assert(_eth_memcpy_naive(buf, src, sizeof(src)) == buf);

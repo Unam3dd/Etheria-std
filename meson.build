@@ -58,7 +58,10 @@ srcs = files('src/memory/memcpy/memcpy.c')
 ######################################
 
 tests = files('tests/memory/memcpy/memcpy_naive/memcpy_naive.c',
-  'tests/memory/memcpy/memcpy_naive/memcpy_naive_stack_buf_aligned_small.c')
+  'tests/memory/memcpy/memcpy_naive/memcpy_naive_stack_buf_aligned_small.c',
+  'tests/memory/memcpy/memcpy_naive/memcpy_naive_stack_buf_aligned_mid.c',
+  'tests/memory/memcpy/memcpy_naive/memcpy_naive_stack_buf_aligned_big.c',
+  'tests/memory/memcpy/memcpy_naive/memcpy_naive_overlap.c')
 
 summary({
   'CPU': build_machine.cpu(),
@@ -119,7 +122,7 @@ endif
 
 if get_option('build_tests') and host_machine.system() == 'linux'
 foreach test_file : tests
-  test_name = 'test_' + test_file.full_path().split('.c')[0]
+  test_name = 'test_' + test_file.full_path().split('/')[-1].split('.c')[0]
   test_exec = executable(test_name,
     test_file,
     c_args: ['-Werror', '-g3', '-O3', '-Oz', '-fPIC'],
