@@ -66,7 +66,7 @@ Test(memcpy_naive_basic_tests, memcpy_naive_basic_string)
     cr_assert(!memcmp(buf, ptr, strlen(ptr)));
 }
 
-Test(memcpy_naive_basic_tests, memcpy_naive_basic_overflow, .signal = SIGSEGV)
+Test(memcpy_naive_basic_tests, memcpy_naive_basic_dst_segfault, .signal = SIGSEGV)
 {
     char    buf[0x100];
     char    *str = "This is a read only string in .rodata section";
@@ -74,5 +74,4 @@ Test(memcpy_naive_basic_tests, memcpy_naive_basic_overflow, .signal = SIGSEGV)
     memset(buf, 'a', sizeof(buf));
     _eth_memcpy_naive(str, buf, strlen(str));
 }
-
 

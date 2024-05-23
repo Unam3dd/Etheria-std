@@ -47,13 +47,19 @@ typedef unsigned int            u32_t;
 typedef unsigned short          u16_t;
 typedef unsigned char           u8_t;
 
+typedef unsigned int            dword_t;
+typedef unsigned short          word_t;
+typedef unsigned char           byte_t;
+
 #if defined(__linux__)
+typedef unsigned long           qword_t;
 typedef unsigned long           eth_size_t;
 typedef unsigned long           size_t;
 typedef unsigned long           u64_t;
 typedef unsigned long           uint64_t;
 typedef unsigned long           eth_uint64_t;
 #else
+typedef unsigned long long      qword_t;
 typedef unsigned long long      eth_size_t;
 typedef unsigned long long      size_t;
 typedef unsigned long long      u64_t;

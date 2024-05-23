@@ -57,7 +57,8 @@ srcs = files('src/memory/memcpy/memcpy.c')
 #
 ######################################
 
-tests = files('tests/memory/memcpy/memcpy_naive/memcpy_naive.c')
+tests = files('tests/memory/memcpy/memcpy_naive/memcpy_naive.c',
+  'tests/memory/memcpy/memcpy_naive/memcpy_naive_stack_buf_aligned_small.c')
 
 summary({
   'CPU': build_machine.cpu(),
@@ -121,7 +122,7 @@ foreach test_file : tests
   test_name = 'test_' + test_file.full_path().split('.c')[0]
   test_exec = executable(test_name,
     test_file,
-    c_args: ['-Werror', '-O3', '-Oz', '-fPIC'],
+    c_args: ['-Werror', '-g3', '-O3', '-Oz', '-fPIC'],
     dependencies: [criterion_dep],
     link_with: lib_static,
     include_directories: incdir,
