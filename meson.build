@@ -1,6 +1,6 @@
 project('Etheria-std', 'c',
   version : '0.1',
-  default_options : ['warning_level=3'])
+  default_options : ['warning_level=3', 'werror=true', 'optimization=3'])
 
 
 ######################################
@@ -106,14 +106,14 @@ if host_machine.system() == 'windows'
 else
   lib_shared = shared_library('etheria-std',
               srcs,
-              c_args: ['-Werror', '-nostdlib', '-nodefaultlibs', '-O3', '-Oz', '-fPIC', '-shared'],
+              c_args: ['-nostdlib', '-nodefaultlibs', '-Oz', '-fPIC', '-shared'],
               install: true,
               install_dir: 'dist/shared',
               include_directories: incdir)
 
   lib_static = static_library('etheria-std',
         srcs,
-        c_args: ['-Werror', '-nostdlib', '-nodefaultlibs', '-O3', '-Oz', '-static-pie'],
+        c_args: ['-nostdlib', '-nodefaultlibs', '-Oz', '-static-pie'],
         install: true,
         install_dir: 'dist/static',
         include_directories: incdir)
@@ -125,7 +125,7 @@ foreach test_file : tests
   test_name = 'test_' + test_file.full_path().split('/')[-1].split('.c')[0]
   test_exec = executable(test_name,
     test_file,
-    c_args: ['-Werror', '-g3', '-O3', '-Oz', '-fPIC'],
+    c_args: ['-g3', '-Oz', '-fPIC'],
     dependencies: [criterion_dep],
     link_with: lib_static,
     include_directories: incdir,

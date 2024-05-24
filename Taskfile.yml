@@ -27,14 +27,14 @@ tasks:
     silent: true
     desc: "Re build the project"
 
-  build_tests:
+  build-tests:
     cmds:
       - meson setup build --reconfigure -Dbuild_tests=true -Dno_static=true --buildtype=release --prefix=$(pwd)
-      - ninja -C build install
+      - ninja -C build
     silent: true
     desc: "Build tests files"
 
-  run_tests:
+  run-tests:
     preconditions:
       - sh: '{{if eq OS "windows" }} cmd.exe /c IF EXIST build {{else}} test -d build {{end}}'
         msg: "Build directory not exist please run build_tests before"
@@ -42,6 +42,45 @@ tasks:
       - meson test -C build --verbose
     silent: true
     desc: "Run tests files"
+
+  run-tests-valgrind:
+    platforms: ["linux"]
+    preconditions:
+      - sh: 'test -d build && test -f /usr/bin/valgrind'
+        msg: "Build directory not exist please run build_tests before or valgrind is missing !"
+    cmds:
+      - meson test -C build --verbose --wrapper=valgrind
+    silent: true
+    desc: "Run tests files with valgrind"
+
+  list-tests:
+    preconditions:
+      - sh: '{{if eq OS "windows" }} cmd.exe /c IF EXIST build {{else}} test -d build {{end}}'
+        msg: "Build directory not exist please run build_tests before"
+    cmds:
+      - meson test -C build --list
+    silent: true
+    desc: "List all tests"
+
+  run-test-suite:
+    preconditions:
+      - sh: '{{if eq OS "windows" }} cmd.exe /c IF EXIST build {{else}} test -d build {{end}}'
+        msg: "Build directory not exist please run build_tests before"
+    cmds:
+      - meson test -C build --verbose {{.CLI_ARGS}}
+    silent: true
+    desc: "Run specified tests suite"
+
+  run-test-suite-valgrind:
+    platforms: ["linux"]
+    preconditions:
+      - sh: 'test -d build && test -d /usr/bin/valgrind'
+        msg: "Build directory not exist please run build_tests before"
+    cmds:
+      - meson test -C build --verbose --wrapper=valgrind {{.CLI_ARGS}}
+    silent: true
+    desc: "Run specified tests suite with valgrind"
+
 
   install:
     platforms: ["linux"]
@@ -68,12 +107,6 @@ tasks:
     silent: true
     desc: "Remove installed etheria Standard library on the system"
     prompt: "Do you want remove etheria-std library"
-
-  clean-test:
-    cmds:
-      - '{{if eq OS "windows"}} cmd.exe /c rmdir ./tests/output/ /S /Q {{else}} rm -rf ./tests/output/{{end}}'
-    silent: true
-    desc: "Clean tests output directory"
 
   clean:
     cmds:
