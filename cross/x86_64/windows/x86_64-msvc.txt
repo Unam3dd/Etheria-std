@@ -1,8 +1,8 @@
 [binaries]
-c = 'clang'
-cpp = 'clang++'
-ar = 'llvm-ar'
-strip = 'llvm-strip'
+c = 'cl'
+cpp = 'cl'
+ar = 'lib'
+strip = 'strip'
 cmake = 'cmake'
 pkg-config = 'pkg-config'
 

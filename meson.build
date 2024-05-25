@@ -106,17 +106,17 @@ if host_machine.system() == 'windows'
 else
   lib_shared = shared_library('etheria-std',
               srcs,
-              c_args: ['-nostdlib', '-nodefaultlibs', '-Oz', '-fPIC', '-shared'],
+              c_args: ['-nostdlib', '-nodefaultlibs', '-Oz', '-fPIC'],
               install: true,
               install_dir: 'dist/shared',
               include_directories: incdir)
 
   lib_static = static_library('etheria-std',
-        srcs,
-        c_args: ['-nostdlib', '-nodefaultlibs', '-Oz', '-static-pie'],
-        install: true,
-        install_dir: 'dist/static',
-        include_directories: incdir)
+    srcs,
+    c_args: ['-nostdlib', '-nodefaultlibs', '-Oz'],
+    install: true,
+    install_dir: 'dist/static',
+    include_directories: incdir)
 endif
 
 

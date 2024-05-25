@@ -3,6 +3,8 @@ c = 'gcc'
 cpp = 'g++'
 ar = 'ar'
 strip = 'strip'
+cmake = 'cmake'
+pkg-config = 'pkg-config'
 
 [host_machine]
 system = 'windows'

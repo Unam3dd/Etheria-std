@@ -7,19 +7,19 @@ cmake = 'cmake'
 pkg-config = 'pkg-config'
 
 [host_machine]
-system = 'windows'
+system = 'linux'
 cpu_family = 'x86_64'
 cpu = 'x86_64'
 endian = 'little'
 
 [build_machine]
-system = 'windows'
+system = 'linux'
 cpu_family = 'x86_64'
 cpu = 'x86_64'
 endian = 'little'
 
 [target_machine]
-system = 'windows'
+system = 'linux'
 cpu_family = 'x86_64'
 cpu = 'x86_64'
 endian = 'little'

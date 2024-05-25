@@ -12,13 +12,23 @@ tasks:
 
   build:
     preconditions:
-      - sh: '{{if eq OS "windows"}} cmd.exe /c echo "WINDOWS" {{else}} test ! -d dist {{end}}'
+      - sh: '{{if eq OS "windows"}} powershell.exe -Command Test-Path dist {{else}} test ! -d dist {{end}}'
         msg: "Nothing to be done."
     cmds:
       - meson setup build --buildtype=release --prefix=$(pwd)
       - ninja -C build install
     silent: true
     desc: "Build the project"
+
+  compile:
+    preconditions:
+      - sh: '{{if eq OS "windows"}} powershell.exe -Command Test-Path dist {{else}} test ! -d dist {{end}}'
+        msg: "Nothing to be done."
+    cmds:
+      - meson setup --cross {{.CLI_ARGS}} build --buildtype=release --prefix=$(pwd)
+      - ninja -C build install
+    silent: true
+    desc: "Build the project with the compiler of your choice"
 
   re:
     cmds:
@@ -36,7 +46,7 @@ tasks:
 
   run-tests:
     preconditions:
-      - sh: '{{if eq OS "windows" }} cmd.exe /c IF EXIST build {{else}} test -d build {{end}}'
+      - sh: '{{if eq OS "windows" }} powershell.exe -Command Test-Path build {{else}} test -d build {{end}}'
         msg: "Build directory not exist please run build_tests before"
     cmds:
       - meson test -C build --verbose
@@ -55,7 +65,7 @@ tasks:
 
   list-tests:
     preconditions:
-      - sh: '{{if eq OS "windows" }} cmd.exe /c IF EXIST build {{else}} test -d build {{end}}'
+      - sh: '{{if eq OS "windows" }} powershell.exe -Command Test-Path build {{else}} test -d build {{end}}'
         msg: "Build directory not exist please run build_tests before"
     cmds:
       - meson test -C build --list
@@ -64,7 +74,7 @@ tasks:
 
   run-test-suite:
     preconditions:
-      - sh: '{{if eq OS "windows" }} cmd.exe /c IF EXIST build {{else}} test -d build {{end}}'
+      - sh: '{{if eq OS "windows" }} powershell.exe -Command Test-Path build {{else}} test -d build {{end}}'
         msg: "Build directory not exist please run build_tests before"
     cmds:
       - meson test -C build --verbose {{.CLI_ARGS}}
