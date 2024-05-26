@@ -21,8 +21,8 @@ Test(memcpy_naive_stack_aligned_big_tests, memcpy_naive_stack_aligned_big_one)
 
     memset(src, 'a', 0x100000);
 
-    cr_assert(_eth_memcpy_naive(buf, src, 0x100000) == buf);
-    cr_assert(!memcmp(buf, src, 0x100000));
+    cr_expect(_eth_memcpy_naive(buf, src, 0x100000) == buf, "the return of _eth_memcpy_naive is not the first parameter.");
+    cr_expect(!memcmp(buf, src, 0x100000), "the result of memcmp is not zero");
 
     free(buf);
     free(src);
@@ -44,8 +44,8 @@ Test(memcpy_naive_stack_aligned_big_tests, memcpy_naive_stack_aligned_big_two)
 
     memset(src, 'a', 0x1000000);
 
-    cr_assert(_eth_memcpy_naive(buf, src, 0x1000000) == buf);
-    cr_assert(!memcmp(buf, src, 0x1000000));
+    cr_expect(_eth_memcpy_naive(buf, src, 0x1000000) == buf, "the return of _eth_memcpy_naive is not the first parameter");
+    cr_expect(!memcmp(buf, src, 0x1000000), "the return of memcmp is not zero.");
 
     free(buf);
     free(src);
@@ -67,8 +67,8 @@ Test(memcpy_naive_stack_aligned_big_tests, memcpy_naive_stack_aligned_big_three)
 
     memset(src, 'a', 0x10000000);
 
-    cr_assert(_eth_memcpy_naive(buf, src, 0x10000000) == buf);
-    cr_assert(!memcmp(buf, src, 0x10000000));
+    cr_expect(_eth_memcpy_naive(buf, src, 0x10000000) == buf, "the return of _eth_memcpy_naive is not the first parameter");
+    cr_expect(!memcmp(buf, src, 0x10000000), "the result of memcmp is no zero.");
 
     free(buf);
     free(src);

@@ -57,11 +57,19 @@ srcs = files('src/memory/memcpy/memcpy.c')
 #
 ######################################
 
-tests = files('tests/memory/memcpy/memcpy_naive/memcpy_naive.c',
+
+types_tests = files('tests/types/types_basic_test.c')
+
+memory_memcpy_naive = files('tests/memory/memcpy/memcpy_naive/memcpy_naive.c',
   'tests/memory/memcpy/memcpy_naive/memcpy_naive_stack_buf_aligned_small.c',
   'tests/memory/memcpy/memcpy_naive/memcpy_naive_stack_buf_aligned_mid.c',
   'tests/memory/memcpy/memcpy_naive/memcpy_naive_stack_buf_aligned_big.c',
-  'tests/memory/memcpy/memcpy_naive/memcpy_naive_overlap.c')
+  'tests/memory/memcpy/memcpy_naive/memcpy_naive_overlap.c',
+  'tests/memory/memcpy/memcpy_naive/memcpy_naive_stack_buf_unaligned_small.c',
+  'tests/memory/memcpy/memcpy_naive/memcpy_naive_stack_buf_unaligned_mid.c',
+  'tests/memory/memcpy/memcpy_naive/memcpy_naive_stack_buf_unaligned_big.c')
+
+tests = types_tests + memory_memcpy_naive
 
 summary({
   'CPU': build_machine.cpu(),

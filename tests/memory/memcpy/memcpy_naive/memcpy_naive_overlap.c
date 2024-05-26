@@ -12,5 +12,5 @@ Test(memcpy_naive_overlap_test, memcpy_naive_overlap_test)
 
     cr_assert(_eth_memcpy_naive(a+2, a, 4) == a+2);
 
-    cr_assert(!memcmp(a, "aaaaaadd", 0x8));
+    cr_expect(!memcmp(a, "aaaaaadd", 0x8), "aabbccdd must be aaaaaadd.");
 }

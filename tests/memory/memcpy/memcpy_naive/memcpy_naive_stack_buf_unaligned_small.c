@@ -7,10 +7,10 @@
 
 #include "eth-std.h"
 
-Test(memcpy_naive_stack_aligned_small_tests, memcpy_naive_stack_aligned_small_one)
+Test(memcpy_naive_stack_unaligned_small_tests, memcpy_naive_stack_unaligned_small_one)
 {
-    char    buf[0x10];
-    char    src[0x10];
+    char    buf[0x13];
+    char    src[0x13];
 
     memset(src, 'a', sizeof(src));
 
@@ -18,90 +18,90 @@ Test(memcpy_naive_stack_aligned_small_tests, memcpy_naive_stack_aligned_small_on
     cr_expect(!memcmp(buf, src, sizeof(buf)));
 }
 
-Test(memcpy_naive_stack_aligned_small_tests, memcpy_naive_stack_aligned_small_two)
+Test(memcpy_naive_stack_unaligned_small_tests, memcpy_naive_stack_unaligned_small_two)
 {
-    char    buf[0x20];
-    char    src[0x20];
+    char    buf[0x26];
+    char    src[0x26];
 
     memset(src, 'a', sizeof(src));
     cr_expect(_eth_memcpy_naive(buf, src, sizeof(src)) == buf);
     cr_expect(!memcmp(buf, src, sizeof(buf)));
 }
 
-Test(memcpy_naive_stack_aligned_small_tests, memcpy_naive_stack_aligned_small_three)
+Test(memcpy_naive_stack_unaligned_small_tests, memcpy_naive_stack_unaligned_small_three)
 {
-    char    buf[0x30];
-    char    src[0x30];
+    char    buf[0x35];
+    char    src[0x35];
 
     memset(src, 'a', sizeof(src));
     cr_expect(_eth_memcpy_naive(buf, src, sizeof(src)) == buf);
     cr_expect(!memcmp(buf, src, sizeof(buf)));
 }
 
-Test(memcpy_naive_stack_aligned_small_tests, memcpy_naive_stack_aligned_small_four)
+Test(memcpy_naive_stack_unaligned_small_tests, memcpy_naive_stack_unaligned_small_four)
 {
-    char    buf[0x40];
-    char    src[0x40];
+    char    buf[0x47];
+    char    src[0x47];
 
     memset(src, 'a', sizeof(src));
     cr_expect(_eth_memcpy_naive(buf, src, sizeof(src)) == buf);
     cr_expect(!memcmp(buf, src, sizeof(buf)));
 }
 
-Test(memcpy_naive_stack_aligned_small_tests, memcpy_naive_stack_aligned_small_five)
+Test(memcpy_naive_stack_unaligned_small_tests, memcpy_naive_stack_unaligned_small_five)
 {
-    char    buf[0x50];
-    char    src[0x50];
+    char    buf[0x51];
+    char    src[0x51];
 
     memset(src, 'a', sizeof(src));
     cr_expect(_eth_memcpy_naive(buf, src, sizeof(src)) == buf);
     cr_expect(!memcmp(buf, src, sizeof(buf)));
 }
 
-Test(memcpy_naive_stack_aligned_small_tests, memcpy_naive_stack_aligned_small_six)
+Test(memcpy_naive_stack_unaligned_small_tests, memcpy_naive_stack_unaligned_small_six)
 {
-    char    buf[0x60];
-    char    src[0x60];
+    char    buf[0x62];
+    char    src[0x62];
 
     memset(src, 'a', sizeof(src));
     cr_expect(_eth_memcpy_naive(buf, src, sizeof(src)) == buf);
     cr_expect(!memcmp(buf, src, sizeof(buf)));
 }
 
-Test(memcpy_naive_stack_aligned_small_tests, memcpy_naive_stack_aligned_small_seven)
+Test(memcpy_naive_stack_unaligned_small_tests, memcpy_naive_stack_unaligned_small_seven)
 {
-    char    buf[0x70];
-    char    src[0x70];
+    char    buf[0x76];
+    char    src[0x76];
 
     memset(src, 'a', sizeof(src));
     cr_expect(_eth_memcpy_naive(buf, src, sizeof(src)) == buf);
     cr_expect(!memcmp(buf, src, sizeof(buf)));
 }
 
-Test(memcpy_naive_stack_aligned_small_tests, memcpy_naive_stack_aligned_small_eight)
+Test(memcpy_naive_stack_unaligned_small_tests, memcpy_naive_stack_unaligned_small_eight)
 {
-    char    buf[0x80];
-    char    src[0x80];
+    char    buf[0x88];
+    char    src[0x88];
 
     memset(src, 'a', sizeof(src));
     cr_expect(_eth_memcpy_naive(buf, src, sizeof(src)) == buf);
     cr_expect(!memcmp(buf, src, sizeof(buf)));
 }
 
-Test(memcpy_naive_stack_aligned_small_tests, memcpy_naive_stack_aligned_small_nine)
+Test(memcpy_naive_stack_unaligned_small_tests, memcpy_naive_stack_unaligned_small_nine)
 {
-    char    buf[0x90];
-    char    src[0x90];
+    char    buf[0x93];
+    char    src[0x93];
 
     memset(src, 'a', sizeof(src));
     cr_expect(_eth_memcpy_naive(buf, src, sizeof(src)) == buf);
     cr_expect(!memcmp(buf, src, sizeof(buf)));
 }
 
-Test(memcpy_naive_stack_aligned_small_tests, memcpy_naive_stack_aligned_small_ten)
+Test(memcpy_naive_stack_unaligned_small_tests, memcpy_naive_stack_unaligned_small_ten)
 {
-    char    buf[0x100];
-    char    src[0x100];
+    char    buf[0x109];
+    char    src[0x109];
 
     memset(src, 'a', sizeof(src));
     cr_expect(_eth_memcpy_naive(buf, src, sizeof(src)) == buf);

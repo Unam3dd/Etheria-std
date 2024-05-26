@@ -13,8 +13,8 @@ Test(memcpy_naive_basic_tests, memcpy_naive_basic_integer_copy)
     int a = 0x41414141;
     int b = 0;
 
-    cr_assert(_eth_memcpy_naive(&b, &a, sizeof(a)) == &b);
-    cr_assert(a == b);
+    cr_expect(_eth_memcpy_naive(&b, &a, sizeof(a)) == &b);
+    cr_expect(a == b);
 }
 
 Test(memcpy_naive_basic_tests, memcpy_naive_basic_null_dst)
@@ -23,12 +23,12 @@ Test(memcpy_naive_basic_tests, memcpy_naive_basic_null_dst)
 
     memcpy(buf, "hello", 0x5);
 
-    cr_assert(_eth_memcpy_naive(NULL, buf, 0xa) == NULL);
+    cr_expect(_eth_memcpy_naive(NULL, buf, 0xa) == NULL);
 }
 
 Test(memcpy_naive_basic_tests, memcpy_naive_basic_null)
 {
-    cr_assert(_eth_memcpy_naive(NULL, NULL, 0) == NULL);
+    cr_expect(_eth_memcpy_naive(NULL, NULL, 0) == NULL);
 }
 
 Test(memcpy_naive_basic_tests, memcpy_naive_basic_null_src)
@@ -39,8 +39,8 @@ Test(memcpy_naive_basic_tests, memcpy_naive_basic_null_src)
     memset(buf, 0, sizeof(buf));
     memset(cmp, 0, sizeof(cmp));
 
-    cr_assert(_eth_memcpy_naive(buf, NULL, sizeof(buf)) == buf);
-    cr_assert(!memcmp(buf, cmp, sizeof(buf)));
+    cr_expect(_eth_memcpy_naive(buf, NULL, sizeof(buf)) == buf);
+    cr_expect(!memcmp(buf, cmp, sizeof(buf)));
 }
 
 Test(memcpy_naive_basic_tests, memcpy_naive_basic_zero_size)
@@ -51,8 +51,8 @@ Test(memcpy_naive_basic_tests, memcpy_naive_basic_zero_size)
     memset(buf, 0, sizeof(buf));
     memset(src, 'a', sizeof(src));
 
-    cr_assert(_eth_memcpy_naive(buf, src, 0) == buf);
-    cr_assert(memcmp(buf, src, sizeof(src)));
+    cr_expect(_eth_memcpy_naive(buf, src, 0) == buf);
+    cr_expect(memcmp(buf, src, sizeof(src)));
 }
 
 Test(memcpy_naive_basic_tests, memcpy_naive_basic_string)
@@ -62,8 +62,8 @@ Test(memcpy_naive_basic_tests, memcpy_naive_basic_string)
 
     memset(buf, 0, sizeof(buf));
 
-    cr_assert(_eth_memcpy_naive(buf, ptr, strlen(ptr)) == buf);
-    cr_assert(!memcmp(buf, ptr, strlen(ptr)));
+    cr_expect(_eth_memcpy_naive(buf, ptr, strlen(ptr)) == buf);
+    cr_expect(!memcmp(buf, ptr, strlen(ptr)));
 }
 
 Test(memcpy_naive_basic_tests, memcpy_naive_basic_dst_segfault, .signal = SIGSEGV)

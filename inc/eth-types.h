@@ -94,11 +94,11 @@ typedef signed int              eth_int32_128_t __attribute__ ((vector_size(0x10
 typedef signed short            eth_int16_128_t __attribute__ ((vector_size(0x10), aligned(0x2)));
 typedef signed char             eth_int8_128_t __attribute__ ((vector_size(0x10),  aligned(0x1)));
 
-typedef eth_int_128_t          eth_i128_t;
-typedef eth_int64_128_t        eth_i64_128_t;
-typedef eth_int32_128_t        eth_i32_128_t;
-typedef eth_int16_128_t        eth_i16_128_t;
-typedef eth_int8_128_t         eth_i8_128_t;
+typedef eth_int_128_t           eth_i128_t;
+typedef eth_int64_128_t         eth_i64_128_t;
+typedef eth_int32_128_t         eth_i32_128_t;
+typedef eth_int16_128_t         eth_i16_128_t;
+typedef eth_int8_128_t          eth_i8_128_t;
 
 typedef eth_i128_t              i128_t;
 typedef eth_i64_128_t           i64_128_t;
@@ -130,12 +130,12 @@ typedef signed int              eth_int32_256_t __attribute__ ((vector_size(0x20
 typedef signed short            eth_int16_256_t __attribute__ ((vector_size(0x20), aligned(2)));
 typedef signed char             eth_int8_256_t __attribute__ ((vector_size(0x20), aligned(1)));
 
-typedef eth_int_256_t          eth_i256_t;
-typedef eth_int128_256_t       eth_i128_256_t;
-typedef eth_int64_256_t        eth_i64_256_t;
-typedef eth_int32_256_t        eth_i32_256_t;
-typedef eth_int16_256_t        eth_i16_256_t;
-typedef eth_int8_256_t         eth_i8_256_t;
+typedef eth_int_256_t           eth_i256_t;
+typedef eth_int128_256_t        eth_i128_256_t;
+typedef eth_int64_256_t         eth_i64_256_t;
+typedef eth_int32_256_t         eth_i32_256_t;
+typedef eth_int16_256_t         eth_i16_256_t;
+typedef eth_int8_256_t          eth_i8_256_t;
 
 typedef eth_i256_t              i256_t;
 typedef eth_i128_256_t          i128_256_t;
@@ -173,7 +173,7 @@ typedef signed int              eth_int32_512_t __attribute__ ((vector_size(0x40
 typedef signed short            eth_int16_512_t __attribute__ ((vector_size(0x40), aligned(2)));
 typedef signed char             eth_int8_512_t  __attribute__ ((vector_size(0x40), aligned(1)));
 
-typedef eth_int_512_t          eth_i512_t;
+typedef eth_int_512_t           eth_i512_t;
 
 #if defined (__BIGGEST_ALIGNMENT__) && __BIGGEST_ALIGNMENT__ >= 0x20
 typedef eth_int256_512_t        eth_i256_512_t;
@@ -185,10 +185,10 @@ typedef eth_int128_512_t        eth_i128_512_t;
 typedef eth_int128_512_t        i128_512_t;
 #endif
 
-typedef eth_int64_512_t        eth_i64_512_t;
-typedef eth_int32_512_t        eth_i32_512_t;
-typedef eth_int16_512_t        eth_i16_512_t;
-typedef eth_int8_512_t         eth_i8_512_t;
+typedef eth_int64_512_t         eth_i64_512_t;
+typedef eth_int32_512_t         eth_i32_512_t;
+typedef eth_int16_512_t         eth_i16_512_t;
+typedef eth_int8_512_t          eth_i8_512_t;
 
 typedef eth_i512_t              i512_t;
 typedef eth_int64_512_t         i64_512_t;
@@ -244,10 +244,10 @@ typedef unsigned                eth_uint_256_t   __attribute__ ((vector_size(0x2
 typedef unsigned                eth_uint128_256_t __attribute__ ((vector_size(0x20), aligned(0x10)));
 #endif
 
-typedef unsigned long           eth_uint64_256_t __attribute__ ((vector_size(32), aligned(8)));
-typedef unsigned int            eth_uint32_256_t __attribute__ ((vector_size(32), aligned(4)));
-typedef unsigned short          eth_uint16_256_t __attribute__ ((vector_size(32), aligned(2)));
-typedef unsigned char           eth_uint8_256_t __attribute__ ((vector_size(32),  aligned(1)));
+typedef unsigned long           eth_uint64_256_t __attribute__ ((vector_size(0x20), aligned(0x8)));
+typedef unsigned int            eth_uint32_256_t __attribute__ ((vector_size(0x20), aligned(0x4)));
+typedef unsigned short          eth_uint16_256_t __attribute__ ((vector_size(0x20), aligned(0x2)));
+typedef unsigned char           eth_uint8_256_t __attribute__ ((vector_size(0x20),  aligned(0x1)));
 
 #if defined (__BIGGEST_ALIGNMENT__) && __BIGGEST_ALIGNMENT__ >= 0x20
 typedef eth_uint_256_t          eth_u256_t;

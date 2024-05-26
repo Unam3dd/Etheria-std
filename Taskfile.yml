@@ -18,9 +18,29 @@ tasks:
       - meson setup build --buildtype=release --prefix=$(pwd)
       - ninja -C build install
     silent: true
-    desc: "Build the project"
+    desc: "Build the project in release build"
 
-  compile:
+  build-strip:
+    preconditions:
+      - sh: '{{if eq OS "windows"}} powershell.exe -Command Test-Path dist {{else}} test ! -d dist {{end}}'
+        msg: "Nothing to be done."
+    cmds:
+      - meson setup build --buildtype=release --strip --prefix=$(pwd)
+      - ninja -C build install
+    silent: true
+    desc: "Build the project in release build in stripped mode"
+
+  build-dev:
+    preconditions:
+      - sh: '{{if eq OS "windows"}} powershell.exe -Command Test-Path dist {{else}} test ! -d dist {{end}}'
+        msg: "Nothing to be done."
+    cmds:
+      - meson setup build --buildtype=debug --prefix=$(pwd)
+      - ninja -C build install
+    silent: true
+    desc: "Build the project in dev build"
+
+  cross-build:
     preconditions:
       - sh: '{{if eq OS "windows"}} powershell.exe -Command Test-Path dist {{else}} test ! -d dist {{end}}'
         msg: "Nothing to be done."
@@ -28,7 +48,17 @@ tasks:
       - meson setup --cross {{.CLI_ARGS}} build --buildtype=release --prefix=$(pwd)
       - ninja -C build install
     silent: true
-    desc: "Build the project with the compiler of your choice"
+    desc: "Build the project with the compiler of your choice in release mode"
+
+  cross-build-dev:
+    preconditions:
+      - sh: '{{if eq OS "windows"}} powershell.exe -Command Test-Path dist {{else}} test ! -d dist {{end}}'
+        msg: "Nothing to be done."
+    cmds:
+      - meson setup --cross {{.CLI_ARGS}} build --buildtype=debug --prefix=$(pwd)
+      - ninja -C build install
+    silent: true
+    desc: "Build the project with the compiler of your choice in dev mode"
 
   re:
     cmds:
@@ -36,6 +66,20 @@ tasks:
       - ninja -C build install
     silent: true
     desc: "Re build the project"
+
+  re-dev:
+    cmds:
+      - meson setup build --reconfigure --buildtype=debug --prefix=$(pwd)
+      - ninja -C build install
+    silent: true
+    desc: "Re build the project in dev mode"
+
+  re-strip:
+    cmds:
+      - meson setup build --reconfigure --buildtype=release --strip --prefix=$(pwd)
+      - ninja -C build install
+    silent: true
+    desc: "Re build the project with strip"
 
   build-tests:
     cmds:
