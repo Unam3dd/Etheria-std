@@ -71,6 +71,16 @@ memory_memcpy_naive = files('tests/memory/memcpy/memcpy_naive/memcpy_naive.c',
 
 tests = types_tests + memory_memcpy_naive
 
+######################################
+#           
+#
+#           BENCHMARKS
+#
+#
+######################################
+
+benchmarks = files('./benchmarks/memory/memcpy_naive/memcpy_naive.c')
+
 summary({
   'CPU': build_machine.cpu(),
   'Endian': build_machine.endian(),
@@ -140,6 +150,26 @@ foreach test_file : tests
     install: true,
     install_dir: 'tests/output/',
     pie: true)
-  test(test_name, test_exec)
+  test(test_name, test_exec, verbose: true)
 endforeach
+
+if get_option('build_bench') and host_machine.system() == 'linux'
+foreach bench_file: benchmarks
+  bench_name = 'bench_' + bench_file.full_path().split('/')[-1].split('.c')[0]
+  
+  bench_exec = executable(bench_name, bench_file, 
+    c_args: ['-Oz', '-fPIC'],
+    link_with: lib_static,
+    include_directories: incdir,
+    install: true,
+    install_dir: 'benchmarks/output/',
+    pie: true)
+  
+  benchmark(bench_name, bench_exec, args: ['--stack', 'AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'], verbose: true)
+  benchmark(bench_name, bench_exec, args: ['--stack', 'AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'], verbose: true)
+  benchmark(bench_name, bench_exec, args: ['--stack', 'HELLO'], verbose: true)
+  benchmark(bench_name, bench_exec, args: ['--stack', 'PWDPWD'], verbose: true)
+endforeach
+endif
+
 endif

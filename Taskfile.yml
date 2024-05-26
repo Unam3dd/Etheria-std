@@ -88,12 +88,28 @@ tasks:
     silent: true
     desc: "Build tests files"
 
+  build-bench:
+    cmds:
+      - meson setup build --reconfigure -Dbuild_tests=true -Dbuild_bench=true -Dno_static=true --buildtype=release --prefix=$(pwd)
+      - ninja -C build
+    silent: true
+    desc: "Build benchmarks files"
+
+  run-bench:
+    preconditions:
+      - sh: '{{if eq OS "windows" }} powershell.exe -Command Test-Path build {{else}} test -d build {{end}}'
+        msg: "Build directory not exist please run build_tests before"
+    cmds:
+      - meson test --benchmark -C build
+    silent: true
+    desc: "Run benchmarks files"
+
   run-tests:
     preconditions:
       - sh: '{{if eq OS "windows" }} powershell.exe -Command Test-Path build {{else}} test -d build {{end}}'
         msg: "Build directory not exist please run build_tests before"
     cmds:
-      - meson test -C build --verbose
+      - meson test -C build
     silent: true
     desc: "Run tests files"
 

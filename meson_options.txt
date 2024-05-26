@@ -1,2 +1,3 @@
 option('build_tests', type: 'boolean', value: false, description: 'Build tests executables')
 option('no_static', type: 'boolean', value: false, description: 'Use no static to enable static functions')
+option('build_bench', type: 'boolean', value: false, description: 'Build benchmark test')
