@@ -48,7 +48,7 @@ jobs:
           echo "🎉 Build completed with Meson!"
 
       - name: Initialize CodeQL
-        uses: github/codeql-action@v2
+        uses: github/codeql-action/init@v2
         with:
           languages: ${{ matrix.language }}
 
