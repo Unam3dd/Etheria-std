@@ -30,8 +30,6 @@ jobs:
           version: 3.x
 
       - uses: actions/setup-python@v5
-        with:
-          cache: 'pip'
       
       - name: 🔄 Installing Meson package build system...
         run: pip install meson
