@@ -15,8 +15,9 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        - language: c-cpp
-          build-mode: manual
+        include:
+          - language: c-cpp
+            build-mode: manual
 
     steps: 
       - name: Checkout repository ${{ github.repository }} on a branch ${{ github.ref_name }} triggered by ${{ github.event_name }}
