@@ -1,27 +1,103 @@
 project('Etheria-std', 'c',
   version : '0.1',
-  default_options : ['warning_level=3'])
+  default_options : ['warning_level=3', 'werror=true', 'optimization=3'])
 
+
+######################################
+#           
+#
+#         COMPILER AND LINKER
+#
+#
+######################################
 
 cc = meson.get_compiler('c')
 linker = cc.get_linker_id()
-ld = find_program('ld', required : true)
+
+if (host_machine.system() == 'linux')
+  ld = find_program('ld', required : true)
+endif
+
+######################################
+#           
+#
+#           DEPENDENCIES
+#
+#
+######################################
+
+criterion_dep = dependency('criterion', required: false)
+
+######################################
+#           
+#
+#           INCLUDES
+#
+#
+######################################
 
 incdir = include_directories('inc')
+
+######################################
+#           
+#
+#           SOURCES
+#
+#
+######################################
+
 srcs = files('src/memory/memcpy/memcpy.c')
+
+
+######################################
+#           
+#
+#           TESTS
+#
+#
+######################################
+
+
+types_tests = files('tests/types/types_basic_test.c')
+
+memory_memcpy_naive = files('tests/memory/memcpy/memcpy_naive/memcpy_naive.c',
+  'tests/memory/memcpy/memcpy_naive/memcpy_naive_stack_buf_aligned_small.c',
+  'tests/memory/memcpy/memcpy_naive/memcpy_naive_stack_buf_aligned_mid.c',
+  'tests/memory/memcpy/memcpy_naive/memcpy_naive_stack_buf_aligned_big.c',
+  'tests/memory/memcpy/memcpy_naive/memcpy_naive_overlap.c',
+  'tests/memory/memcpy/memcpy_naive/memcpy_naive_stack_buf_unaligned_small.c',
+  'tests/memory/memcpy/memcpy_naive/memcpy_naive_stack_buf_unaligned_mid.c',
+  'tests/memory/memcpy/memcpy_naive/memcpy_naive_stack_buf_unaligned_big.c')
+
+tests = types_tests + memory_memcpy_naive
+
+######################################
+#           
+#
+#           BENCHMARKS
+#
+#
+######################################
+
+benchmarks = files('./benchmarks/memory/memcpy_naive/memcpy_naive.c')
 
 summary({
   'CPU': build_machine.cpu(),
-  'CPU Family': build_machine.cpu_family(),
   'Endian': build_machine.endian(),
   'System': build_machine.system()
   }, section: 'Machine Information')
 
+if (host_machine.system() == 'linux')
 summary({
   'C Compiler': cc.get_id() + ' ' + cc.version(),
   'Dynamic linker path': ld,
   'Dynamic linker': ld.version(),
   }, section: 'Compiler and Linker Information')
+else
+summary({
+  'C Compiler': cc.get_id() + ' ' + cc.version(),
+  }, section: 'Compiler Information')
+endif
 
 summary({
   'Name': meson.project_name(),
@@ -34,16 +110,65 @@ summary({
   }, section: 'Project Overview')
 
 
-shared_library('etheria-std',
+if (get_option('no_static'))
+  add_project_arguments('-DNO_STATIC=1', language: 'c')
+endif
+
+if host_machine.system() == 'windows'
+
+  static_library('etheria-std',
+        srcs,
+        install: true,
+        install_dir: 'dist',
+        include_directories: incdir)
+else
+  lib_shared = shared_library('etheria-std',
               srcs,
-              c_args: ['-Werror', '-nostdlib', '-nodefaultlibs', '-O3', '-Oz', '-fPIE', '-shared'],
+              c_args: ['-nostdlib', '-nodefaultlibs', '-Oz', '-fPIC'],
               install: true,
               install_dir: 'dist/shared',
               include_directories: incdir)
 
-static_library('etheria-std',
-        srcs,
-        c_args: ['-Werror', '-nostdlib', '-nodefaultlibs', '-O3', '-Oz', '-static-pie'],
-        install: true,
-        install_dir: 'dist/static',
-        include_directories: incdir)
+  lib_static = static_library('etheria-std',
+    srcs,
+    c_args: ['-nostdlib', '-nodefaultlibs', '-Oz'],
+    install: true,
+    install_dir: 'dist/static',
+    include_directories: incdir)
+endif
+
+
+if get_option('build_tests') and host_machine.system() == 'linux'
+foreach test_file : tests
+  test_name = 'test_' + test_file.full_path().split('/')[-1].split('.c')[0]
+  test_exec = executable(test_name,
+    test_file,
+    c_args: ['-g3', '-Oz', '-fPIC'],
+    dependencies: [criterion_dep],
+    link_with: lib_static,
+    include_directories: incdir,
+    install: false,
+    pie: true)
+  test(test_name, test_exec, verbose: true)
+endforeach
+
+if get_option('build_bench') and host_machine.system() == 'linux'
+foreach bench_file: benchmarks
+  bench_name = 'bench_' + bench_file.full_path().split('/')[-1].split('.c')[0]
+  
+  bench_exec = executable(bench_name, bench_file, 
+    c_args: ['-Oz', '-fPIC'],
+    link_with: lib_static,
+    include_directories: incdir,
+    install: true,
+    install_dir: 'benchmarks/output/',
+    pie: true)
+  
+  benchmark(bench_name, bench_exec, args: ['--stack', 'AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'], verbose: true)
+  benchmark(bench_name, bench_exec, args: ['--stack', 'AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'], verbose: true)
+  benchmark(bench_name, bench_exec, args: ['--stack', 'HELLO'], verbose: true)
+  benchmark(bench_name, bench_exec, args: ['--stack', 'PWDPWD'], verbose: true)
+endforeach
+endif
+
+endif
