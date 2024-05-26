@@ -15,7 +15,7 @@ jobs:
       - run: "echo the ${{ github.repository }} has been cloned in the container !"
 
       - name: 🔄 Installing task...
-        uses: arduino/setup-task@v1
+        uses: arduino/setup-task@v2
         with:
           version: 3.x
 
