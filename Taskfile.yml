@@ -40,16 +40,6 @@ tasks:
     silent: true
     desc: "Build the project in dev build"
 
-  build-msvc:
-    preconditions:
-      - sh: '{{if eq OS "windows"}} powershell.exe -Command Test-Path dist {{else}} test ! -d dist {{end}}'
-        msg: "Nothing to be done."
-    cmds:
-      - meson setup --cross-file ./cross/x86_64/windows/x86_64-msvc.txt build_vs --vsenv --buildtype=release --prefix=$(pwd)
-      - ninja -C build_vs install
-    silent: true
-    desc: "Build the project with MSVC in build"
-
   cross-build:
     preconditions:
       - sh: '{{if eq OS "windows"}} powershell.exe -Command Test-Path dist {{else}} test ! -d dist {{end}}'
