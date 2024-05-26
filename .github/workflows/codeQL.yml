@@ -43,16 +43,17 @@ jobs:
           sudo ln -s -f /usr/bin/gcc-12 /usr/bin/gcc
           echo "✅ Dependencies installed!"
 
-      - name: Run build release task...
-        run: |
-          echo "🏗️ Setting up Meson build system..."
-          task build
-          echo "🎉 Build completed with Meson!"
 
       - name: Initialize CodeQL
         uses: github/codeql-action/init@v3
         with:
           languages: ${{ matrix.language }}
+
+      - name: Run build release task...
+        run: |
+          echo "🏗️ Setting up Meson build system..."
+          task build
+          echo "🎉 Build completed with Meson!"
 
       - name: Perform CodeQL Analysis
         uses: github/codeql-action/analyze@v3
