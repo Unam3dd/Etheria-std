@@ -147,8 +147,7 @@ foreach test_file : tests
     dependencies: [criterion_dep],
     link_with: lib_static,
     include_directories: incdir,
-    install: true,
-    install_dir: 'tests/output/',
+    install: false,
     pie: true)
   test(test_name, test_exec, verbose: true)
 endforeach
