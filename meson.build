@@ -1,6 +1,6 @@
 project('Etheria-std', 'c',
   version : '0.1',
-  default_options : ['warning_level=3', 'werror=true', 'optimization=3'])
+  default_options : ['warning_level=3', 'werror=true', 'optimization=3', 'buildtype=release'])
 
 
 ######################################
@@ -26,7 +26,7 @@ endif
 #
 ######################################
 
-criterion_dep = dependency('criterion', required: false)
+criterion_dep = dependency('criterion', required: false, allow_fallback: true)
 
 ######################################
 #           
@@ -71,16 +71,6 @@ memory_memcpy_naive = files('tests/memory/memcpy/memcpy_naive/memcpy_naive.c',
 
 tests = types_tests + memory_memcpy_naive
 
-######################################
-#           
-#
-#           BENCHMARKS
-#
-#
-######################################
-
-benchmarks = files('./benchmarks/memory/memcpy_naive/memcpy_naive.c')
-
 summary({
   'CPU': build_machine.cpu(),
   'Endian': build_machine.endian(),
@@ -124,14 +114,14 @@ if host_machine.system() == 'windows'
 else
   lib_shared = shared_library('etheria-std',
               srcs,
-              c_args: ['-nostdlib', '-nodefaultlibs', '-Oz', '-fPIC'],
+              c_args: ['-nostdlib', '-nodefaultlibs', '-Os', '-fPIC'],
               install: true,
               install_dir: 'dist/shared',
               include_directories: incdir)
 
   lib_static = static_library('etheria-std',
     srcs,
-    c_args: ['-nostdlib', '-nodefaultlibs', '-Oz'],
+    c_args: ['-nostdlib', '-nodefaultlibs', '-Os'],
     install: true,
     install_dir: 'dist/static',
     include_directories: incdir)
@@ -143,32 +133,12 @@ foreach test_file : tests
   test_name = 'test_' + test_file.full_path().split('/')[-1].split('.c')[0]
   test_exec = executable(test_name,
     test_file,
-    c_args: ['-g3', '-Oz', '-fPIC'],
+    c_args: ['-g3', '-Os', '-fPIC'],
     dependencies: [criterion_dep],
     link_with: lib_static,
     include_directories: incdir,
     install: false,
     pie: true)
-  test(test_name, test_exec, verbose: true)
+  test(test_name, test_exec, verbose: false)
 endforeach
-
-if get_option('build_bench') and host_machine.system() == 'linux'
-foreach bench_file: benchmarks
-  bench_name = 'bench_' + bench_file.full_path().split('/')[-1].split('.c')[0]
-  
-  bench_exec = executable(bench_name, bench_file, 
-    c_args: ['-Oz', '-fPIC'],
-    link_with: lib_static,
-    include_directories: incdir,
-    install: true,
-    install_dir: 'benchmarks/output/',
-    pie: true)
-  
-  benchmark(bench_name, bench_exec, args: ['--stack', 'AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'], verbose: true)
-  benchmark(bench_name, bench_exec, args: ['--stack', 'AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'], verbose: true)
-  benchmark(bench_name, bench_exec, args: ['--stack', 'HELLO'], verbose: true)
-  benchmark(bench_name, bench_exec, args: ['--stack', 'PWDPWD'], verbose: true)
-endforeach
-endif
-
 endif
