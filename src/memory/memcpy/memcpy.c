@@ -6,7 +6,7 @@
 //
 //////////////////////////////////////
 
-STATIC void *_eth_memcpy_naive (void *restrict dst, const void *restrict src, size_t size)
+STATIC void * _eth_memcpy_naive(void *restrict dst, const void *restrict src, size_t size)
 {
   if (!dst || !src || !size)
     return (dst);
@@ -18,14 +18,22 @@ STATIC void *_eth_memcpy_naive (void *restrict dst, const void *restrict src, si
   return (dst);
 }
 
-#if defined(__linux__)
-
-void *(*_eth_memcpy_ifunc (void)) (void *restrict, const void *restrict, size_t)
+STATIC void* _eth_memcpy_erms(void *restrict dst, const void *restrict src, size_t size)
 {
-  return (_eth_memcpy_naive);
+    if (!dst || !src || !size) return (dst);
+
+    return (dst);
 }
 
-void *eth_memcpy (void *restrict dst, const void *restrict src, size_t size) __attribute__((ifunc ("_eth_memcpy_ifunc")));
+#if defined(__linux__)
+
+static void *(*_eth_memcpy_ifunc(void)) (void *restrict, const void *restrict, size_t)
+{
+    (void)_eth_memcpy_erms(NULL, NULL, 0);
+    return (_eth_memcpy_naive);
+}
+
+void *eth_memcpy(void *restrict dst, const void *restrict src, size_t size) __attribute__((ifunc ("_eth_memcpy_ifunc")));
 
 
 #endif
