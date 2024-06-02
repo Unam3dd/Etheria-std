@@ -17,10 +17,10 @@
 //
 //////////////////////////////////////
 
-#ifndef NO_STATIC
-#define STATIC static
-#else
+#ifdef NO_STATIC
 #define STATIC
+#else
+#define STATIC static
 #endif
 
 ///////////////////////////////////////

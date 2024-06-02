@@ -26,7 +26,9 @@ endif
 #
 ######################################
 
-criterion_dep = dependency('criterion', required: false, allow_fallback: true)
+if get_option('build_tests')
+  criterion = dependency('criterion', required: true)
+endif
 
 ######################################
 #           
@@ -134,7 +136,7 @@ foreach test_file : tests
   test_exec = executable(test_name,
     test_file,
     c_args: ['-g3', '-Os', '-fPIC'],
-    dependencies: [criterion_dep],
+    dependencies: [criterion],
     link_with: lib_static,
     include_directories: incdir,
     install: false,
