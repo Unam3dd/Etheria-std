@@ -83,7 +83,7 @@ tasks:
 
   build-tests:
     cmds:
-      - meson setup build --reconfigure -Dbuild_tests=true -Dno_static=true --prefix=$(pwd)
+      - meson setup build --reconfigure -Dbuild_tests=true --prefix=$(pwd)
       - ninja -C build
     silent: true
     desc: "Build tests files"

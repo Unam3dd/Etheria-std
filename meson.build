@@ -1,6 +1,6 @@
 project('Etheria-std', 'c',
   version : '0.1',
-  default_options : ['warning_level=3', 'werror=true', 'optimization=3', 'buildtype=release'])
+  default_options : ['warning_level=3', 'werror=true', 'optimization=0', 'buildtype=release'])
 
 
 ######################################
@@ -105,10 +105,15 @@ summary({
   'Datadir': get_option('datadir'),
   }, section: 'Project Overview')
 
+######################################
+#           
+#
+#           ARGUMENTS
+#
+#
+######################################
 
-if (get_option('no_static'))
-  add_project_arguments('-DNO_STATIC=1', language: 'c')
-endif
+add_project_arguments('-DNO_STATIC=1', language: 'c')
 
 if host_machine.system() == 'windows'
 
@@ -120,14 +125,14 @@ if host_machine.system() == 'windows'
 else
   lib_shared = shared_library('etheria-std',
               srcs,
-              c_args: ['-nostdlib', '-nodefaultlibs', '-Os', '-fPIC'],
+              c_args: ['-nostdlib', '-nodefaultlibs', '-fPIC'],
               install: true,
               install_dir: 'dist/shared',
               include_directories: incdir)
 
   lib_static = static_library('etheria-std',
     srcs,
-    c_args: ['-nostdlib', '-nodefaultlibs', '-Os'],
+    c_args: ['-nostdlib', '-nodefaultlibs'],
     install: true,
     install_dir: 'dist/static',
     include_directories: incdir)
@@ -139,7 +144,7 @@ foreach test_file : tests
   test_name = 'test_' + test_file.full_path().split('/')[-1].split('.c')[0]
   test_exec = executable(test_name,
     test_file,
-    c_args: ['-g3', '-Os', '-fPIC'],
+    c_args: ['-g3', '-fPIC'],
     dependencies: [criterion],
     link_with: lib_static,
     include_directories: incdir,
