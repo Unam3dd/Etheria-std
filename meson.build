@@ -14,9 +14,9 @@ project('Etheria-std', 'c',
 cc = meson.get_compiler('c')
 linker = cc.get_linker_id()
 
-if not cc.has_function_attribute('ifunc')
-  error('The Target compiler does not support ifunc function attribute.')
-endif
+#if not cc.has_function_attribute('ifunc')
+  #  error('The Target compiler does not support ifunc function attribute.')
+#endif
 
 if (host_machine.system() == 'linux')
   ld = find_program('ld', required : true)

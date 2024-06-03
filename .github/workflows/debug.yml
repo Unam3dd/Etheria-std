@@ -1,4 +1,4 @@
-name: Ubuntu-Latest - Build Release
+name: Ubuntu-Latest - Build Debug
 
 on: [push, pull_request]
 
@@ -38,5 +38,5 @@ jobs:
           CC: ${{ matrix.compiler }}
         run: |
           echo "🏗️ Setting up Meson build system..."
-          task build
+          task build-dev
           echo "🎉 Build completed with Meson!"
