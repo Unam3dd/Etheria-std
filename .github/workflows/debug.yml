@@ -1,25 +1,16 @@
-name: CodeQL
+name: Ubuntu-Latest - Build Debug
 
 on: [push, pull_request]
 
 permissions:
-  actions: read
   contents: read
-  security-events: write
 
 jobs:
-  
-  analyze: 
-    runs-on: [ubuntu-latest]
-    
+  build: 
     strategy:
-      fail-fast: false
       matrix:
         compiler: [gcc, clang]
-        include:
-          - language: c-cpp
-            build-mode: manual
-
+    runs-on: ubuntu-latest
     steps: 
       - name: Checkout repository ${{ github.repository }} on a branch ${{ github.ref_name }} triggered by ${{ github.event_name }}
         uses: actions/checkout@v4
@@ -38,25 +29,14 @@ jobs:
 
       - name: 🔄 Installing Dependencies...
         run: |
-          echo "📦 Installing libcriterion-dev, Ninja, GCC New Version"
+          echo "📦 Installing libcriterion-dev, Ninja"
           sudo apt-get update && sudo apt-get install -y libcriterion-dev ninja-build
           echo "✅ Dependencies installed!"
-
-
-      - name: Initialize CodeQL
-        uses: github/codeql-action/init@v3
-        with:
-          languages: ${{ matrix.language }}
 
       - name: Run build release task...
         env:
           CC: ${{ matrix.compiler }}
         run: |
           echo "🏗️ Setting up Meson build system..."
-          task build
+          task build-dev
           echo "🎉 Build completed with Meson!"
-
-      - name: Perform CodeQL Analysis
-        uses: github/codeql-action/analyze@v3
-        with:
-          category: ${{ matrix.language }}

@@ -35,7 +35,7 @@ tasks:
       - sh: '{{if eq OS "windows"}} powershell.exe -Command Test-Path dist {{else}} test ! -d dist {{end}}'
         msg: "Nothing to be done."
     cmds:
-      - meson setup build --buildtype=debugoptmized --prefix=$(pwd)
+      - meson setup build --buildtype=debugoptimized --prefix=$(pwd)
       - ninja -C build install
     silent: true
     desc: "Build the project in dev build"
@@ -83,7 +83,7 @@ tasks:
 
   build-tests:
     cmds:
-      - meson setup build --reconfigure -Dbuild_tests=true -Dno_static=true --prefix=$(pwd)
+      - meson setup build --reconfigure -Dbuild_tests=true --prefix=$(pwd)
       - ninja -C build
     silent: true
     desc: "Build tests files"
