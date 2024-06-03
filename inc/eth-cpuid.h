@@ -1,0 +1,36 @@
+#ifndef ETH_CPUID_H
+#define ETH_CPUID_H
+
+#if !defined (__x86_64__)
+
+#error "Error Etheria CPUID is only supported on x86 architecture"
+
+#else
+
+///////////////////////////////////////
+//
+//        ETHERIA TYPES
+//
+//////////////////////////////////////
+
+#include "eth-types.h"
+
+///////////////////////////////////////
+//
+//       ETHERIA CPUID FLAGS
+//
+//////////////////////////////////////
+
+#include "eth-cpuid-flag.h"
+
+///////////////////////////////////////
+//
+//         CPU SUPPORT
+//
+//////////////////////////////////////
+
+eth_bool_t  cpu_support(const char *name);
+
+#endif
+
+#endif
