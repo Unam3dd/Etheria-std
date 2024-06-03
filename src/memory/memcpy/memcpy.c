@@ -27,7 +27,7 @@ STATIC void* _eth_memcpy_erms(void *restrict dst, const void *restrict src, size
 
 #if defined(__linux__)
 
-static void *(*_eth_memcpy_ifunc(void)) (void *restrict, const void *restrict, size_t)
+void *(*_eth_memcpy_ifunc(void)) (void *restrict, const void *restrict, size_t)
 {
     (void)_eth_memcpy_erms(NULL, NULL, 0);
     return (_eth_memcpy_naive);

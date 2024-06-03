@@ -35,7 +35,7 @@ jobs:
       - name: 🔄 Installing Dependencies...
         run: |
           echo "📦 Installing libcriterion-dev, Ninja"
-          sudo apt-get update && apt-get install -y libcriterion-dev ninja-build
+          sudo apt-get update && sudo apt-get install -y libcriterion-dev ninja-build
           echo "✅ Dependencies installed!"
 
       - name: Run build release task...

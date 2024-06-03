@@ -1,6 +1,6 @@
 name: Ubuntu - Memcpy Naive implementation Tests
 
-on: push
+on: [push, pull_request]
 
 permissions:
   contents: write
@@ -29,9 +29,8 @@ jobs:
 
       - name: 🔄 Installing Dependencies...
         run: |
-          sudo apt-get update
           echo "📦 Installing libcriterion-dev, Ninja"
-          sudo apt-get install -y libcriterion-dev ninja-build
+          sudo apt-get update && sudo apt-get install -y libcriterion-dev ninja-build
           echo "✅ Dependencies installed!"
 
       - name: Build tests

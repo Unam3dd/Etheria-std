@@ -1,6 +1,6 @@
 name: CodeQL
 
-on: push
+on: [push, pull_request]
 
 permissions:
   actions: read
@@ -39,7 +39,7 @@ jobs:
       - name: 🔄 Installing Dependencies...
         run: |
           echo "📦 Installing libcriterion-dev, Ninja, GCC New Version"
-          sudo apt-get update && apt-get install -y libcriterion-dev ninja-build
+          sudo apt-get update && sudo apt-get install -y libcriterion-dev ninja-build
           echo "✅ Dependencies installed!"
 
 
