@@ -15,6 +15,7 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
+        compiler: [gcc, clang]
         include:
           - language: c-cpp
             build-mode: manual
@@ -37,10 +38,8 @@ jobs:
 
       - name: 🔄 Installing Dependencies...
         run: |
-          sudo apt-get update
           echo "📦 Installing libcriterion-dev, Ninja, GCC New Version"
-          sudo apt-get install -y libcriterion-dev ninja-build gcc-12
-          sudo ln -s -f /usr/bin/gcc-12 /usr/bin/gcc
+          sudo apt-get update && apt-get install -y libcriterion-dev ninja-build
           echo "✅ Dependencies installed!"
 
 
@@ -50,6 +49,8 @@ jobs:
           languages: ${{ matrix.language }}
 
       - name: Run build release task...
+        env:
+          CC: ${{ matrix.compiler }}
         run: |
           echo "🏗️ Setting up Meson build system..."
           task build

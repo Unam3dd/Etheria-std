@@ -8,6 +8,9 @@ permissions:
 jobs:
   build: 
     runs-on: [ubuntu-latest]
+    strategy:
+      matrix:
+        compiler: [gcc, clang]
     steps: 
       - name: Checkout repository ${{ github.repository }} on a branch ${{ github.ref_name }} triggered by ${{ github.event_name }}
         uses: actions/checkout@v4
@@ -27,18 +30,21 @@ jobs:
       - name: 🔄 Installing Dependencies...
         run: |
           sudo apt-get update
-          echo "📦 Installing libcriterion-dev, Ninja, GCC New Version"
-          sudo apt-get install -y libcriterion-dev ninja-build gcc-12
-          sudo ln -s -f /usr/bin/gcc-12 /usr/bin/gcc
+          echo "📦 Installing libcriterion-dev, Ninja"
+          sudo apt-get install -y libcriterion-dev ninja-build
           echo "✅ Dependencies installed!"
 
       - name: Build tests
+        env:
+          CC: ${{ matrix.compiler }}
         run: |
           echo "🏗️ Setting up Meson build system..."
           task build-tests
           echo "🎉 Build completed with Meson!"
       
       - name: Run test memcpy naive tests
+        env:
+          CC: ${{ matrix.compiler }}
         run: |
-          echo "🏗️ Run naive memcpy tests..."
+          echo "🏗️ Run naive memcpy tests... with $CC"
           task run-test-suite -- $(task list-tests | grep "test_memcpy_naive")
