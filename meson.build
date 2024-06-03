@@ -1,6 +1,6 @@
 project('Etheria-std', 'c',
   version : '0.1',
-  default_options : ['warning_level=3', 'werror=true', 'optimization=0', 'buildtype=release'])
+  default_options : ['warning_level=3', 'werror=true', 'optimization=3', 'buildtype=release'])
 
 
 ######################################
