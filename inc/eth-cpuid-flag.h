@@ -7,7 +7,7 @@
 //
 //////////////////////////////////////
 
-typedef enum eth_cpuid_flag_t eth_cpuid_flag_t;
+typedef enum eth_cpuid_feat_flag_t eth_cpuid_feat_flag_t;
 
 ///////////////////////////////////////
 //
@@ -15,7 +15,7 @@ typedef enum eth_cpuid_flag_t eth_cpuid_flag_t;
 //
 //////////////////////////////////////
 
-enum eth_cpuid_flag_t
+enum eth_cpuid_feat_flag_t
 {
 };
 

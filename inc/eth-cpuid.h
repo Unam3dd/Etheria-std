@@ -29,7 +29,7 @@
 //
 //////////////////////////////////////
 
-eth_bool_t  cpu_support(const char *name);
+eth_bool_t  cpu_supports(const char *name);
 
 #endif
 
