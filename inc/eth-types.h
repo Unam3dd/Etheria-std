@@ -17,8 +17,6 @@
 //
 //////////////////////////////////////
 
-typedef enum eth_bool_t eth_bool_t;
-
 enum eth_bool_t
 {
     FALSE,
