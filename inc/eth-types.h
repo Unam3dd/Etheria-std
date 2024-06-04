@@ -13,15 +13,39 @@
 
 ///////////////////////////////////////
 //
+//          MACRO
+//
+//////////////////////////////////////
+
+#define BIN_NUM_1(x) (1<<(x))
+#define BIN_NUM_2(x) (BIN_NUM_1(x))|(BIN_NUM_1(x+1))
+#define BIN_NUM_3(x) (BIN_NUM_2(x))|(BIN_NUM_1(x+2))
+#define BIN_NUM_4(x) (BIN_NUM_2(x))|(BIN_NUM_2(x+2))
+#define BIN_NUM_5(x) (BIN_NUM_4(x))|(BIN_NUM_1(x+4))
+#define BIN_NUM_6(x) (BIN_NUM_4(x))|(BIN_NUM_2(x+4))
+#define BIN_NUM_7(x) (BIN_NUM_4(x))|(BIN_NUM_3(x+4))
+#define BIN_NUM_8(x) (BIN_NUM_4(x))|(BIN_NUM_4(x+4))
+
+#define ETH_AND(a, b) (a & b)
+#define ETH_OR(a, b) (a | b)
+#define ETH_XOR(a, b) (a ^ b)
+#define ETH_NOT(a) (~a)
+#define ETH_LSH(a, b) (a << b)
+#define ETH_RSH(a, b) (a >> b)
+
+#define ETH_ZERO(x) ETH_XOR(x, x)
+
+///////////////////////////////////////
+//
 //          BOOL
 //
 //////////////////////////////////////
 
-enum eth_bool_t
+typedef enum eth_bool_t
 {
     FALSE,
     TRUE
-};
+} eth_bool_t;
 
 
 ///////////////////////////////////////
