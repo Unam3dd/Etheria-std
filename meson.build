@@ -14,9 +14,9 @@ project('Etheria-std', 'c',
 cc = meson.get_compiler('c')
 linker = cc.get_linker_id()
 
-#if not cc.has_function_attribute('ifunc')
-  #  error('The Target compiler does not support ifunc function attribute.')
-#endif
+if not cc.has_function_attribute('ifunc')
+    error('The Target compiler does not support ifunc function attribute.')
+endif
 
 if (host_machine.system() == 'linux')
   ld = find_program('ld', required : true)
@@ -52,8 +52,9 @@ incdir = include_directories('inc')
 #
 ######################################
 
-srcs = files('src/memory/memcpy/memcpy.c')
+MEMCPY_FILES = files('src/memory/memcpy/memcpy.c')
 
+SRCS = MEMCPY_FILES
 
 ######################################
 #           
@@ -118,20 +119,20 @@ add_project_arguments('-DNO_STATIC=1', language: 'c')
 if host_machine.system() == 'windows'
 
   static_library('etheria-std',
-        srcs,
+        SRCS,
         install: true,
         install_dir: 'dist',
         include_directories: incdir)
 else
   lib_shared = shared_library('etheria-std',
-              srcs,
+              SRCS,
               c_args: ['-nostdlib', '-nodefaultlibs', '-fPIC'],
               install: true,
               install_dir: 'dist/shared',
               include_directories: incdir)
 
   lib_static = static_library('etheria-std',
-    srcs,
+    SRCS,
     c_args: ['-nostdlib', '-nodefaultlibs'],
     install: true,
     install_dir: 'dist/static',

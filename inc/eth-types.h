@@ -26,14 +26,21 @@
 #define BIN_NUM_7(x) (BIN_NUM_4(x))|(BIN_NUM_3(x+4))
 #define BIN_NUM_8(x) (BIN_NUM_4(x))|(BIN_NUM_4(x+4))
 
-#define ETH_AND(a, b) (a & b)
-#define ETH_OR(a, b) (a | b)
-#define ETH_XOR(a, b) (a ^ b)
-#define ETH_NOT(a) (~a)
+#define ETH_AND(a, b) a & b
+#define ETH_OR(a, b) a | b
+#define ETH_XOR(a, b) a ^ b
+#define ETH_NOT(a) ~a
 #define ETH_LSH(a, b) (a << b)
 #define ETH_RSH(a, b) (a >> b)
-
 #define ETH_ZERO(x) ETH_XOR(x, x)
+
+///////////////////////////////////////
+//
+//         TYPES TYPEDEFS
+//
+//////////////////////////////////////
+
+#define STATIC_INLINE static inline __attribute__((always_inline))
 
 ///////////////////////////////////////
 //
