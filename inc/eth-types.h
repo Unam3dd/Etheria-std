@@ -33,6 +33,7 @@
 #define ETH_LSH(a, b) (a << b)
 #define ETH_RSH(a, b) (a >> b)
 #define ETH_ZERO(x) ETH_XOR(x, x)
+#define GET_SIZE(x, y) (sizeof(x)/sizeof(y))
 
 ///////////////////////////////////////
 //

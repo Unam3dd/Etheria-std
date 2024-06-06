@@ -42,8 +42,14 @@ STATIC_INLINE eth_cpuid_reg_t *eth_cpuid(u32_t eax, u32_t ecx)
     return (&r);
 }
 
-inline __attribute__((always_inline)) eth_bool_t eth_cpu_supports(const char *name)
+#include <string.h>
+
+STATIC_INLINE eth_bool_t eth_cpu_supports(const char *name)
 {
+    size_t len = 0;
+    const DEF_BASIC_FEAT(basic_feat_edx, EDX, &len);
+    const DEF_BASIC_FEAT(basic_feat_ecx, ECX, NULL);
+
     if (!name) return (FALSE);
 
     return (TRUE);

@@ -3,6 +3,6 @@
 
 int main(void)
 {
-    printf("%d\n", eth_cpu_supports("test"));
+    printf("%d\n", eth_cpu_supports("sse"));
     return (0);
 }

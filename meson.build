@@ -53,8 +53,9 @@ incdir = include_directories('inc')
 ######################################
 
 MEMCPY_FILES = files('src/memory/memcpy/memcpy.c')
+CPUID_FILES = files('src/cpuid/cpuid.c')
 
-SRCS = MEMCPY_FILES
+SRCS = MEMCPY_FILES + CPUID_FILES
 
 ######################################
 #           

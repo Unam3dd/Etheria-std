@@ -75,7 +75,7 @@ typedef enum eth_cpuid_reg_index_t
     ECX,    //  ECX: 0x1
     EDX,    //  EDX: 0x2
     EBX     //  EBX: 0x3
-} eth_cpuid_reg_index_t;
+} eth_cpuid_reg_index_t, eth_cpuid_ri_t;
 
 ///////////////////////////////////////
 //
@@ -113,5 +113,22 @@ struct eth_cpuid_feat_ext_t
     eth_cpuid_flag_t        flag;
     eth_cpuid_reg_index_t   reg;
 };
+
+///////////////////////////////////////
+//
+//         SINGLETON
+//
+//////////////////////////////////////
+
+const eth_cpuid_feat_ext_t *e_cpuid_basic_feat(eth_cpuid_ri_t idx, size_t *sz);
+
+///////////////////////////////////////
+//
+//        CPUID FEAT MACRO
+//
+//////////////////////////////////////
+
+
+#define DEF_BASIC_FEAT(n,r,sz) eth_cpuid_feat_ext_t  *n = e_cpuid_basic_feat(r,sz)
 
 #endif
