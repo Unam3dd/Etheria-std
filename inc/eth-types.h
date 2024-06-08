@@ -108,7 +108,12 @@ typedef unsigned int            dword_t;
 typedef unsigned short          word_t;
 typedef unsigned char           byte_t;
 
+typedef unsigned int            eth_off32_t;
+typedef unsigned short          eth_off_t;
+typedef unsigned short          eth_off16_t;
+
 #if defined(__linux__)
+typedef unsigned long           eth_off64_t;
 typedef unsigned long           qword_t;
 typedef unsigned long           eth_size_t;
 typedef unsigned long           size_t;
@@ -116,6 +121,7 @@ typedef unsigned long           u64_t;
 typedef unsigned long           uint64_t;
 typedef unsigned long           eth_uint64_t;
 #else
+typedef unsigned long long      eth_off64_t;
 typedef unsigned long long      qword_t;
 typedef unsigned long long      eth_size_t;
 typedef unsigned long long      size_t;

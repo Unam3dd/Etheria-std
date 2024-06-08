@@ -15,73 +15,73 @@
 //
 //////////////////////////////////////
 
-#define DEF_CPUID_PROC_INFO(name) const static eth_cpuid_feat_ext_t                                  \
-                            _eth_LUT_edx_##name[] = {                                                \
-                            {"fpu",    ETH_CPUID_PROC_INFO_FEAT, EDX },                              \
-                            {"vme",    ETH_CPUID_PROC_INFO_FEAT, EDX },                              \
-                            {"de",     ETH_CPUID_PROC_INFO_FEAT, EDX },                              \
-                            {"pse",    ETH_CPUID_PROC_INFO_FEAT, EDX },                              \
-                            {"tsc",    ETH_CPUID_PROC_INFO_FEAT, EDX },                              \
-                            {"msr",    ETH_CPUID_PROC_INFO_FEAT, EDX },                              \
-                            {"pae",    ETH_CPUID_PROC_INFO_FEAT, EDX },                              \
-                            {"mce",    ETH_CPUID_PROC_INFO_FEAT, EDX },                              \
-                            {"cx8",    ETH_CPUID_PROC_INFO_FEAT, EDX },                              \
-                            {"apic",   ETH_CPUID_PROC_INFO_FEAT, EDX },                              \
-                            {"sep",    ETH_CPUID_PROC_INFO_FEAT, EDX },                              \
-                            {"mtrr",   ETH_CPUID_PROC_INFO_FEAT, EDX },                              \
-                            {"pge",    ETH_CPUID_PROC_INFO_FEAT, EDX },                              \
-                            {"mca",    ETH_CPUID_PROC_INFO_FEAT, EDX },                              \
-                            {"cmov",   ETH_CPUID_PROC_INFO_FEAT, EDX },                              \
-                            {"pat",    ETH_CPUID_PROC_INFO_FEAT, EDX },                              \
-                            {"pse-36", ETH_CPUID_PROC_INFO_FEAT, EDX },                              \
-                            {"psn",    ETH_CPUID_PROC_INFO_FEAT, EDX },                              \
-                            {"clfsh",  ETH_CPUID_PROC_INFO_FEAT, EDX },                              \
-                            {"nx",     ETH_CPUID_PROC_INFO_FEAT, EDX },                              \
-                            {"ds",     ETH_CPUID_PROC_INFO_FEAT, EDX },                              \
-                            {"acpi",   ETH_CPUID_PROC_INFO_FEAT, EDX },                              \
-                            {"mmx",    ETH_CPUID_PROC_INFO_FEAT, EDX },                              \
-                            {"fxsr",   ETH_CPUID_PROC_INFO_FEAT, EDX },                              \
-                            {"sse",    ETH_CPUID_PROC_INFO_FEAT, EDX },                              \
-                            {"sse2",   ETH_CPUID_PROC_INFO_FEAT, EDX },                              \
-                            {"ss",     ETH_CPUID_PROC_INFO_FEAT, EDX },                              \
-                            {"htt",    ETH_CPUID_PROC_INFO_FEAT, EDX },                              \
-                            {"tm",     ETH_CPUID_PROC_INFO_FEAT, EDX },                              \
-                            {"ia64",   ETH_CPUID_PROC_INFO_FEAT, EDX },                              \
-                            {"pbe",    ETH_CPUID_PROC_INFO_FEAT, EDX },                              \
-                        };                                                                           \
-                        const static eth_cpuid_feat_ext_t                                            \
-                            _eth_LUT_ecx_##name[] = {                                                \
-                            {"sse3",        ETH_CPUID_PROC_INFO_FEAT, ECX },                         \
-                            {"pclmulqdq",   ETH_CPUID_PROC_INFO_FEAT, ECX },                         \
-                            {"dtes64",      ETH_CPUID_PROC_INFO_FEAT, ECX },                         \
-                            {"monitor",     ETH_CPUID_PROC_INFO_FEAT, ECX },                         \
-                            {"ds-cpl",      ETH_CPUID_PROC_INFO_FEAT, ECX },                         \
-                            {"vmx",         ETH_CPUID_PROC_INFO_FEAT, ECX },                         \
-                            {"smx",         ETH_CPUID_PROC_INFO_FEAT, ECX },                         \
-                            {"est",         ETH_CPUID_PROC_INFO_FEAT, ECX },                         \
-                            {"tm2",         ETH_CPUID_PROC_INFO_FEAT, ECX },                         \
-                            {"ssse3",       ETH_CPUID_PROC_INFO_FEAT, ECX },                         \
-                            {"cnxt-id",     ETH_CPUID_PROC_INFO_FEAT, ECX },                         \
-                            {"sdbg",        ETH_CPUID_PROC_INFO_FEAT, ECX },                         \
-                            {"fma",         ETH_CPUID_PROC_INFO_FEAT, ECX },                         \
-                            {"cx16",        ETH_CPUID_PROC_INFO_FEAT, ECX },                         \
-                            {"xtpr",        ETH_CPUID_PROC_INFO_FEAT, ECX },                         \
-                            {"pdcm",        ETH_CPUID_PROC_INFO_FEAT, ECX },                         \
-                            {"pcid",        ETH_CPUID_PROC_INFO_FEAT, ECX },                         \
-                            {"dca",         ETH_CPUID_PROC_INFO_FEAT, ECX },                         \
-                            {"sse41",       ETH_CPUID_PROC_INFO_FEAT, ECX },                         \
-                            {"sse42",       ETH_CPUID_PROC_INFO_FEAT, ECX },                         \
-                            {"x2apic",      ETH_CPUID_PROC_INFO_FEAT, ECX },                         \
-                            {"movbe",       ETH_CPUID_PROC_INFO_FEAT, ECX },                         \
-                            {"popcnt",      ETH_CPUID_PROC_INFO_FEAT, ECX },                         \
-                            {"tsc-deadline",ETH_CPUID_PROC_INFO_FEAT, ECX },                         \
-                            {"aes-ni",      ETH_CPUID_PROC_INFO_FEAT, ECX },                         \
-                            {"xsave",       ETH_CPUID_PROC_INFO_FEAT, ECX },                         \
-                            {"osxsave",     ETH_CPUID_PROC_INFO_FEAT, ECX },                         \
-                            {"avx",         ETH_CPUID_PROC_INFO_FEAT, ECX },                         \
-                            {"f16c",        ETH_CPUID_PROC_INFO_FEAT, ECX },                         \
-                            {"rdrnd",       ETH_CPUID_PROC_INFO_FEAT, ECX },                         \
-                            {"hypervisor",  ETH_CPUID_PROC_INFO_FEAT, ECX },                         \
+#define DEF_CPUID_PROC_INFO(name) static const eth_cpuid_feat_ext_t                                     \
+                            _eth_LUT_edx_##name[] = {                                                   \
+                            {"fpu",    ETH_CPUID_PROC_INFO_FEAT, 0, ETH_CPUID_FEAT_FPU,   EDX },        \
+                            {"vme",    ETH_CPUID_PROC_INFO_FEAT, 0, ETH_CPUID_FEAT_VME,   EDX },        \
+                            {"de",     ETH_CPUID_PROC_INFO_FEAT, 0, ETH_CPUID_FEAT_DE,    EDX },        \
+                            {"pse",    ETH_CPUID_PROC_INFO_FEAT, 0, ETH_CPUID_FEAT_PSE,   EDX },        \
+                            {"tsc",    ETH_CPUID_PROC_INFO_FEAT, 0, ETH_CPUID_FEAT_TSC,   EDX },        \
+                            {"msr",    ETH_CPUID_PROC_INFO_FEAT, 0, ETH_CPUID_FEAT_MSR,   EDX },        \
+                            {"pae",    ETH_CPUID_PROC_INFO_FEAT, 0, ETH_CPUID_FEAT_PAE,   EDX },        \
+                            {"mce",    ETH_CPUID_PROC_INFO_FEAT, 0, ETH_CPUID_FEAT_MCE,   EDX },        \
+                            {"cx8",    ETH_CPUID_PROC_INFO_FEAT, 0, ETH_CPUID_FEAT_CX8,   EDX },        \
+                            {"apic",   ETH_CPUID_PROC_INFO_FEAT, 0, ETH_CPUID_FEAT_APIC,  EDX },        \
+                            {"sep",    ETH_CPUID_PROC_INFO_FEAT, 0, ETH_CPUID_FEAT_SEP,   EDX },        \
+                            {"mtrr",   ETH_CPUID_PROC_INFO_FEAT, 0, ETH_CPUID_FEAT_MTRR,  EDX },        \
+                            {"pge",    ETH_CPUID_PROC_INFO_FEAT, 0, ETH_CPUID_FEAT_PGE,   EDX },        \
+                            {"mca",    ETH_CPUID_PROC_INFO_FEAT, 0, ETH_CPUID_FEAT_MCA,   EDX },        \
+                            {"cmov",   ETH_CPUID_PROC_INFO_FEAT, 0, ETH_CPUID_FEAT_CMOV,  EDX },        \
+                            {"pat",    ETH_CPUID_PROC_INFO_FEAT, 0, ETH_CPUID_FEAT_PAT,   EDX },        \
+                            {"pse-36", ETH_CPUID_PROC_INFO_FEAT, 0, ETH_CPUID_FEAT_PSE36, EDX },        \
+                            {"psn",    ETH_CPUID_PROC_INFO_FEAT, 0, ETH_CPUID_FEAT_PSN,   EDX },        \
+                            {"clfsh",  ETH_CPUID_PROC_INFO_FEAT, 0, ETH_CPUID_FEAT_CLFSH, EDX },        \
+                            {"nx",     ETH_CPUID_PROC_INFO_FEAT, 0, ETH_CPUID_FEAT_NX,    EDX },        \
+                            {"ds",     ETH_CPUID_PROC_INFO_FEAT, 0, ETH_CPUID_FEAT_DS,    EDX },        \
+                            {"acpi",   ETH_CPUID_PROC_INFO_FEAT, 0, ETH_CPUID_FEAT_ACPI,  EDX },        \
+                            {"mmx",    ETH_CPUID_PROC_INFO_FEAT, 0, ETH_CPUID_FEAT_MMX,   EDX },        \
+                            {"fxsr",   ETH_CPUID_PROC_INFO_FEAT, 0, ETH_CPUID_FEAT_FXSR,  EDX },        \
+                            {"sse",    ETH_CPUID_PROC_INFO_FEAT, 0, ETH_CPUID_FEAT_SSE,   EDX },        \
+                            {"sse2",   ETH_CPUID_PROC_INFO_FEAT, 0, ETH_CPUID_FEAT_SSE2,  EDX },        \
+                            {"ss",     ETH_CPUID_PROC_INFO_FEAT, 0, ETH_CPUID_FEAT_SS,    EDX },        \
+                            {"htt",    ETH_CPUID_PROC_INFO_FEAT, 0, ETH_CPUID_FEAT_HTT,   EDX },        \
+                            {"tm",     ETH_CPUID_PROC_INFO_FEAT, 0, ETH_CPUID_FEAT_TM,    EDX },        \
+                            {"ia64",   ETH_CPUID_PROC_INFO_FEAT, 0, ETH_CPUID_FEAT_IA64,  EDX },        \
+                            {"pbe",    ETH_CPUID_PROC_INFO_FEAT, 0, ETH_CPUID_FEAT_PBE,   EDX },        \
+                        };                                                                              \
+                        static const eth_cpuid_feat_ext_t                                               \
+                            _eth_LUT_ecx_##name[] = {                                                   \
+                            {"sse3",        ETH_CPUID_PROC_INFO_FEAT, 0, ETH_CPUID_FEAT_SSE3,      ECX },\
+                            {"pclmulqdq",   ETH_CPUID_PROC_INFO_FEAT, 0, ETH_CPUID_FEAT_PCLMULQDQ, ECX },\
+                            {"dtes64",      ETH_CPUID_PROC_INFO_FEAT, 0, ETH_CPUID_FEAT_DTES64,    ECX },\
+                            {"monitor",     ETH_CPUID_PROC_INFO_FEAT, 0, ETH_CPUID_FEAT_MONITOR,   ECX },\
+                            {"ds-cpl",      ETH_CPUID_PROC_INFO_FEAT, 0, ETH_CPUID_FEAT_DS_CPL,    ECX },\
+                            {"vmx",         ETH_CPUID_PROC_INFO_FEAT, 0, ETH_CPUID_FEAT_VMX,       ECX },\
+                            {"smx",         ETH_CPUID_PROC_INFO_FEAT, 0, ETH_CPUID_FEAT_SMX,       ECX },\
+                            {"est",         ETH_CPUID_PROC_INFO_FEAT, 0, ETH_CPUID_FEAT_EST,       ECX },\
+                            {"tm2",         ETH_CPUID_PROC_INFO_FEAT, 0, ETH_CPUID_FEAT_TM2,       ECX },\
+                            {"ssse3",       ETH_CPUID_PROC_INFO_FEAT, 0, ETH_CPUID_FEAT_SSSE3,     ECX },\
+                            {"cnxt-id",     ETH_CPUID_PROC_INFO_FEAT, 0, ETH_CPUID_FEAT_CNXT_ID,   ECX },\
+                            {"sdbg",        ETH_CPUID_PROC_INFO_FEAT, 0, ETH_CPUID_FEAT_SDBG,      ECX },\
+                            {"fma",         ETH_CPUID_PROC_INFO_FEAT, 0, ETH_CPUID_FEAT_FMA,       ECX },\
+                            {"cx16",        ETH_CPUID_PROC_INFO_FEAT, 0, ETH_CPUID_FEAT_CX16,      ECX },\
+                            {"xtpr",        ETH_CPUID_PROC_INFO_FEAT, 0, ETH_CPUID_FEAT_XTPR,      ECX },\
+                            {"pdcm",        ETH_CPUID_PROC_INFO_FEAT, 0, ETH_CPUID_FEAT_PDCM,      ECX },\
+                            {"pcid",        ETH_CPUID_PROC_INFO_FEAT, 0, ETH_CPUID_FEAT_PCID,      ECX },\
+                            {"dca",         ETH_CPUID_PROC_INFO_FEAT, 0, ETH_CPUID_FEAT_DCA,       ECX },\
+                            {"sse41",       ETH_CPUID_PROC_INFO_FEAT, 0, ETH_CPUID_FEAT_SSE41,     ECX },\
+                            {"sse42",       ETH_CPUID_PROC_INFO_FEAT, 0, ETH_CPUID_FEAT_SSE42,     ECX },\
+                            {"x2apic",      ETH_CPUID_PROC_INFO_FEAT, 0, ETH_CPUID_FEAT_X2APIC,    ECX },\
+                            {"movbe",       ETH_CPUID_PROC_INFO_FEAT, 0, ETH_CPUID_FEAT_MOVBE,     ECX },\
+                            {"popcnt",      ETH_CPUID_PROC_INFO_FEAT, 0, ETH_CPUID_FEAT_POPCNT,    ECX },\
+                            {"tsc-deadline",ETH_CPUID_PROC_INFO_FEAT, 0, ETH_CPUID_FEAT_TSC_DLINE, ECX },\
+                            {"aes-ni",      ETH_CPUID_PROC_INFO_FEAT, 0, ETH_CPUID_FEAT_AES_NI,    ECX },\
+                            {"xsave",       ETH_CPUID_PROC_INFO_FEAT, 0, ETH_CPUID_FEAT_XSAVE,     ECX },\
+                            {"osxsave",     ETH_CPUID_PROC_INFO_FEAT, 0, ETH_CPUID_FEAT_OSXSAVE,   ECX },\
+                            {"avx",         ETH_CPUID_PROC_INFO_FEAT, 0, ETH_CPUID_FEAT_AVX,       ECX },\
+                            {"f16c",        ETH_CPUID_PROC_INFO_FEAT, 0, ETH_CPUID_FEAT_F16C,      ECX },\
+                            {"rdrnd",       ETH_CPUID_PROC_INFO_FEAT, 0, ETH_CPUID_FEAT_RDRND,     ECX },\
+                            {"hypervisor",  ETH_CPUID_PROC_INFO_FEAT, 0, ETH_CPUID_FEAT_HYPERVISOR,ECX },\
                         };
 
 #endif

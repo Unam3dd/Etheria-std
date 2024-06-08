@@ -116,6 +116,7 @@ summary({
 ######################################
 
 add_project_arguments('-DNO_STATIC=1', language: 'c')
+add_project_arguments('-masm=intel', language: 'c')
 
 if host_machine.system() == 'windows'
 
