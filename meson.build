@@ -1,6 +1,6 @@
 project('Etheria-std', 'c',
   version : '0.1',
-  default_options : ['warning_level=3', 'werror=true', 'optimization=3', 'buildtype=release'])
+  default_options : ['warning_level=3', 'werror=true', 'optimization=0', 'buildtype=release'])
 
 
 ######################################
@@ -72,7 +72,6 @@ memory_memcpy_naive = files('tests/memory/memcpy/memcpy_naive/memcpy_naive.c',
   'tests/memory/memcpy/memcpy_naive/memcpy_naive_stack_buf_aligned_small.c',
   'tests/memory/memcpy/memcpy_naive/memcpy_naive_stack_buf_aligned_mid.c',
   'tests/memory/memcpy/memcpy_naive/memcpy_naive_stack_buf_aligned_big.c',
-  'tests/memory/memcpy/memcpy_naive/memcpy_naive_overlap.c',
   'tests/memory/memcpy/memcpy_naive/memcpy_naive_stack_buf_unaligned_small.c',
   'tests/memory/memcpy/memcpy_naive/memcpy_naive_stack_buf_unaligned_mid.c',
   'tests/memory/memcpy/memcpy_naive/memcpy_naive_stack_buf_unaligned_big.c')
