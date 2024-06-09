@@ -97,6 +97,15 @@ tasks:
     silent: true
     desc: "Run tests files"
 
+  run-tests-verbose:
+    preconditions:
+      - sh: '{{if eq OS "windows" }} powershell.exe -Command Test-Path build {{else}} test -d build {{end}}'
+        msg: "Build directory not exist please run build_tests before"
+    cmds:
+      - meson test -C build --verbose
+    silent: true
+    desc: "Run tests files with verbosity"
+
   run-tests-valgrind:
     platforms: ["linux"]
     preconditions:

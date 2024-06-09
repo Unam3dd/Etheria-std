@@ -69,13 +69,13 @@
                             {"pdcm",        ETH_CPUID_PROC_INFO_FEAT, 0, ETH_CPUID_FEAT_PDCM,      ECX },\
                             {"pcid",        ETH_CPUID_PROC_INFO_FEAT, 0, ETH_CPUID_FEAT_PCID,      ECX },\
                             {"dca",         ETH_CPUID_PROC_INFO_FEAT, 0, ETH_CPUID_FEAT_DCA,       ECX },\
-                            {"sse41",       ETH_CPUID_PROC_INFO_FEAT, 0, ETH_CPUID_FEAT_SSE41,     ECX },\
-                            {"sse42",       ETH_CPUID_PROC_INFO_FEAT, 0, ETH_CPUID_FEAT_SSE42,     ECX },\
+                            {"sse4.1",      ETH_CPUID_PROC_INFO_FEAT, 0, ETH_CPUID_FEAT_SSE41,     ECX },\
+                            {"sse4.2",      ETH_CPUID_PROC_INFO_FEAT, 0, ETH_CPUID_FEAT_SSE42,     ECX },\
                             {"x2apic",      ETH_CPUID_PROC_INFO_FEAT, 0, ETH_CPUID_FEAT_X2APIC,    ECX },\
                             {"movbe",       ETH_CPUID_PROC_INFO_FEAT, 0, ETH_CPUID_FEAT_MOVBE,     ECX },\
                             {"popcnt",      ETH_CPUID_PROC_INFO_FEAT, 0, ETH_CPUID_FEAT_POPCNT,    ECX },\
                             {"tsc-deadline",ETH_CPUID_PROC_INFO_FEAT, 0, ETH_CPUID_FEAT_TSC_DLINE, ECX },\
-                            {"aes-ni",      ETH_CPUID_PROC_INFO_FEAT, 0, ETH_CPUID_FEAT_AES_NI,    ECX },\
+                            {"aes",         ETH_CPUID_PROC_INFO_FEAT, 0, ETH_CPUID_FEAT_AES_NI,    ECX },\
                             {"xsave",       ETH_CPUID_PROC_INFO_FEAT, 0, ETH_CPUID_FEAT_XSAVE,     ECX },\
                             {"osxsave",     ETH_CPUID_PROC_INFO_FEAT, 0, ETH_CPUID_FEAT_OSXSAVE,   ECX },\
                             {"avx",         ETH_CPUID_PROC_INFO_FEAT, 0, ETH_CPUID_FEAT_AVX,       ECX },\
