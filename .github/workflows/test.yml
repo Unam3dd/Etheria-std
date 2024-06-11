@@ -41,7 +41,7 @@ jobs:
           task build-tests
           echo "🎉 Build completed with Meson!"
       
-      - name: Run test memcpy naive tests
+      - name: Run tests
         env:
           CC: ${{ matrix.compiler }}
         run: |
