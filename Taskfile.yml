@@ -91,7 +91,7 @@ tasks:
   run-tests:
     preconditions:
       - sh: '{{if eq OS "windows" }} powershell.exe -Command Test-Path build {{else}} test -d build {{end}}'
-        msg: "Build directory not exist please run build_tests before"
+        msg: "Build directory not exist please run task build-tests before"
     cmds:
       - meson test -C build
     silent: true

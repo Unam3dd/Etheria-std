@@ -1,4 +1,4 @@
-name: Ubuntu - Types Tests
+name: Ubuntu - Memcpy Naive implementation Tests
 
 on: [push, pull_request]
 
@@ -7,7 +7,7 @@ permissions:
 
 jobs:
   build: 
-    runs-on: ubuntu-latest
+    runs-on: [ubuntu-latest]
     strategy:
       matrix:
         compiler: [gcc, clang]
@@ -29,7 +29,7 @@ jobs:
 
       - name: 🔄 Installing Dependencies...
         run: |
-          echo "📦 Installing libcriterion-dev, Ninja, GCC New Version"
+          echo "📦 Installing libcriterion-dev, Ninja"
           sudo apt-get update && sudo apt-get install -y libcriterion-dev ninja-build
           echo "✅ Dependencies installed!"
 
@@ -41,9 +41,9 @@ jobs:
           task build-tests
           echo "🎉 Build completed with Meson!"
       
-      - name: Run Types tests
+      - name: Run test memcpy naive tests
         env:
           CC: ${{ matrix.compiler }}
         run: |
-          echo "🏗️ Setting up Meson build system... with $CC"
-          task run-test-suite -- $(task list-tests | grep "test_types")
+          echo "🏗️ Run naive memcpy tests... with $CC"
+          task run-tests-verbose
