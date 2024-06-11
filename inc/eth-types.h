@@ -11,6 +11,8 @@
 #define NULL (void*)0
 #endif
 
+#define GET_(x) #x
+
 ///////////////////////////////////////
 //
 //          MACRO

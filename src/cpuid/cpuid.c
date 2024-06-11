@@ -3,21 +3,36 @@
 #include "eth-cpuid.h"
 #include "eth-types.h"
 #include "eth-types.h"
+#include <stdio.h>
 
-static const eth_cpuid_feat_ext_t *e_cpuid_basic_feat(eth_cpuid_ri_t idx, size_t *sz)
+static const eth_cpuid_feat_ext_t *
+e_cpuid_feat(eth_cpuid_ri_t idx, eth_bool_t ext, u32_t x_page)
 {
-    DEF_CPUID_PROC_INFO(support);
+    DEF_CPUID_PROC_INFO(info);
+    DEF_CPUID_EXT_FEAT(_sup);
 
-    if (idx == EDX && sz)
-        *sz = GET_SIZE(_eth_LUT_edx_support, eth_cpuid_feat_ext_t);
-
-    if (idx == ECX && sz)
-        *sz = GET_SIZE(_eth_LUT_ecx_support, eth_cpuid_feat_ext_t);
+    if (ext) {
+        if (!x_page && idx == EBX)
+            return (_eth_LUT_ext_EBX_sup);
+        if (!x_page && idx == ECX)
+            return (_eth_LUT_ext_ECX_sup);
+        if (!x_page && idx == EDX)
+            return (_eth_LUT_ext_EDX_sup);
+        if (x_page == FEAT_ECX_PAGE_1 && idx == EAX)
+            return (_eth_LUT_ext_one_EAX_sup);
+        if (x_page == FEAT_ECX_PAGE_1 && idx == EBX)
+            return (_eth_LUT_ext_one_EBX_sup);
+        if (x_page == FEAT_ECX_PAGE_1 && idx == ECX)
+            return (_eth_LUT_ext_one_ECX_sup);
+        if (x_page == FEAT_ECX_PAGE_1 && idx == EDX)
+            return (_eth_LUT_ext_one_EDX_sup);
+        return (NULL);
+    }
 
     return (idx == EDX
-            ? _eth_LUT_edx_support
+            ? _eth_LUT_EDX_info
             : idx == ECX 
-            ? _eth_LUT_ecx_support 
+            ? _eth_LUT_ECX_info 
             : NULL);
 }
 
@@ -27,9 +42,11 @@ static const eth_cpuid_feat_ext_t *e_cpuid_basic_feat(eth_cpuid_ri_t idx, size_t
 //
 //////////////////////////////////////
 
-STATIC_INLINE eth_uint32_t fast_cmp_str(const char *s1, const char *s2)
+static __attribute__((noinline)) i32_t fast_cmp_str(const char *s1, const char *s2)
 {
-    int r = 0;
+    i32_t r = 0;
+
+    if (!s1 || !s2) return (-1);
 
     __asm__ volatile (
             "movdqu xmm0, xmmword ptr [rdi]\n\t"
@@ -52,26 +69,45 @@ STATIC_INLINE eth_uint32_t fast_cmp_str(const char *s1, const char *s2)
 
 eth_bool_t eth_cpu_support(const char *name)
 {
-    size_t i = 0, sz = 0;
     eth_cpuid_reg_t *reg = NULL;
     eth_cpuid_feat_ext_t *ptr = NULL;
-    u32_t *ptr_reg = NULL;
+    u32_t *offset = NULL;
+    size_t i = 0;
 
-    const DEF_BASIC_FEAT(basic_feat_edx, EDX, &sz);
-    const DEF_BASIC_FEAT(basic_feat_ecx, ECX, NULL);
+    DEF_BASIC_FEAT(basic_feat_edx, EDX);
+    DEF_BASIC_FEAT(basic_feat_ecx, ECX);
+    
+    DEF_EXT_FEAT(ext_feat_ebx, EBX, 0);
+    DEF_EXT_FEAT(ext_feat_ecx, ECX, 0);
+    DEF_EXT_FEAT(ext_feat_edx, EDX, 0);
+    DEF_EXT_FEAT(ext_feat_one_eax, EAX, 1);
+    DEF_EXT_FEAT(ext_feat_one_ebx, EBX, 1);
+    DEF_EXT_FEAT(ext_feat_one_ecx, ECX, 1);
+    DEF_EXT_FEAT(ext_feat_one_edx, EDX, 1);
 
-    if (!name) return (FALSE);
+    if (!name || *name == 0) return (FALSE);
 
-    for (i = 0; i < sz; i++) {
-        if (!fast_cmp_str(basic_feat_edx[i].str, name)) {
+    for (i = 0; i < 32; i++) {
+
+        if (!ptr && !fast_cmp_str(basic_feat_edx[i].str, name))
             ptr = (eth_cpuid_feat_ext_t*)&basic_feat_edx[i];
-            break ;
-        }
-
-        if (!fast_cmp_str(basic_feat_ecx[i].str, name)) {
+        if (!ptr && !fast_cmp_str(basic_feat_ecx[i].str, name))
             ptr = (eth_cpuid_feat_ext_t*)&basic_feat_ecx[i];
-            break ;
-        }
+        if (!ptr && !fast_cmp_str(ext_feat_ebx[i].str, name))
+            ptr = (eth_cpuid_feat_ext_t*)&ext_feat_ebx[i];
+        if (!ptr && !fast_cmp_str(ext_feat_ecx[i].str, name))
+            ptr = (eth_cpuid_feat_ext_t*)&ext_feat_ecx[i];
+        if (!ptr && !fast_cmp_str(ext_feat_edx[i].str, name))
+            ptr = (eth_cpuid_feat_ext_t*)&ext_feat_edx[i];
+        if (!ptr && !fast_cmp_str(ext_feat_one_eax[i].str, name))
+            ptr = (eth_cpuid_feat_ext_t*)&ext_feat_one_eax[i];
+        if (!ptr && !fast_cmp_str(ext_feat_one_ebx[i].str, name))
+            ptr = (eth_cpuid_feat_ext_t *)&ext_feat_one_ebx[i];
+        if (!ptr && !fast_cmp_str(ext_feat_one_ecx[i].str, name))
+            ptr = (eth_cpuid_feat_ext_t *)&ext_feat_one_ecx[i];
+        if (!ptr && !fast_cmp_str(ext_feat_one_edx[i].str, name))
+            ptr = (eth_cpuid_feat_ext_t *)&ext_feat_one_edx[i];
+        if (ptr) break ;
     }
 
     if (!ptr) return (FALSE);
@@ -80,7 +116,7 @@ eth_bool_t eth_cpu_support(const char *name)
 
     if (!reg) return (FALSE);
 
-    ptr_reg = (u32_t*)(((u64_t)reg) + (sizeof(u32_t)*ptr->reg));
+    offset = (u32_t*)(((u64_t)reg) + (sizeof(u32_t)*ptr->reg));
 
-    return (ptr_reg && (ETH_AND(*ptr_reg, ptr->flg)) == (u32_t)ptr->flg);
+    return (offset && (ETH_AND(*offset, ptr->flg)) == (u32_t)ptr->flg);
 }
