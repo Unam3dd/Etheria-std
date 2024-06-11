@@ -11,6 +11,53 @@
 #define NULL (void*)0
 #endif
 
+#define GET_(x) #x
+
+///////////////////////////////////////
+//
+//          MACRO
+//
+//////////////////////////////////////
+
+#define BIN_NUM_1(x) (1<<(x))
+#define BIN_NUM_2(x) (BIN_NUM_1(x))|(BIN_NUM_1(x+1))
+#define BIN_NUM_3(x) (BIN_NUM_2(x))|(BIN_NUM_1(x+2))
+#define BIN_NUM_4(x) (BIN_NUM_2(x))|(BIN_NUM_2(x+2))
+#define BIN_NUM_5(x) (BIN_NUM_4(x))|(BIN_NUM_1(x+4))
+#define BIN_NUM_6(x) (BIN_NUM_4(x))|(BIN_NUM_2(x+4))
+#define BIN_NUM_7(x) (BIN_NUM_4(x))|(BIN_NUM_3(x+4))
+#define BIN_NUM_8(x) (BIN_NUM_4(x))|(BIN_NUM_4(x+4))
+
+#define ETH_AND(a, b) a & b
+#define ETH_OR(a, b) a | b
+#define ETH_XOR(a, b) a ^ b
+#define ETH_NOT(a) ~a
+#define ETH_LSH(a, b) (a << b)
+#define ETH_RSH(a, b) (a >> b)
+#define ETH_ZERO(x) ETH_XOR(x, x)
+#define GET_SIZE(x, y) (sizeof(x)/sizeof(y))
+
+///////////////////////////////////////
+//
+//         TYPES TYPEDEFS
+//
+//////////////////////////////////////
+
+#define STATIC_INLINE static inline __attribute__((always_inline))
+
+///////////////////////////////////////
+//
+//          BOOL
+//
+//////////////////////////////////////
+
+typedef enum eth_bool_t
+{
+    FALSE,
+    TRUE
+} eth_bool_t;
+
+
 ///////////////////////////////////////
 //
 //          STATIC
@@ -63,7 +110,12 @@ typedef unsigned int            dword_t;
 typedef unsigned short          word_t;
 typedef unsigned char           byte_t;
 
+typedef unsigned int            eth_off32_t;
+typedef unsigned short          eth_off_t;
+typedef unsigned short          eth_off16_t;
+
 #if defined(__linux__)
+typedef unsigned long           eth_off64_t;
 typedef unsigned long           qword_t;
 typedef unsigned long           eth_size_t;
 typedef unsigned long           size_t;
@@ -71,6 +123,7 @@ typedef unsigned long           u64_t;
 typedef unsigned long           uint64_t;
 typedef unsigned long           eth_uint64_t;
 #else
+typedef unsigned long long      eth_off64_t;
 typedef unsigned long long      qword_t;
 typedef unsigned long long      eth_size_t;
 typedef unsigned long long      size_t;
