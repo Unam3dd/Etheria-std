@@ -35,7 +35,7 @@ tasks:
       - sh: '{{if eq OS "windows"}} powershell.exe -Command Test-Path build {{else}} test -d build {{end}}'
         msg: "Norm required compile_commands.json files please build the project before !"
     cmds:
-      - clang-tidy -p./build src/**/*.c
+      - clang-tidy -p ./build src/**/*.c
     silent: true
     desc: "Pass the norm on the project"
 
