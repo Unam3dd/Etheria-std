@@ -36,4 +36,3 @@ jobs:
           task build
           echo "🔄 Check the Norm..."
           task norm
-          echo "🎉 Build completed with Meson!"
