@@ -30,6 +30,13 @@ tasks:
     silent: true
     desc: "Build the project in release build in stripped mode"
 
+  norm:
+    preconditions:
+      - sh: '{{if eq OS "windows"}} powershell.exe -Command Test-Path build {{else}} test -d build {{end}}'
+        msg: "Norm required compile_commands.json files please build the project before !"
+    cmds:
+      - clang-tidy -p ./build src/**/*.c
+
   build-dev:
     preconditions:
       - sh: '{{if eq OS "windows"}} powershell.exe -Command Test-Path dist {{else}} test ! -d dist {{end}}'
