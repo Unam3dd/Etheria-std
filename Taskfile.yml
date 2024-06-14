@@ -30,6 +30,16 @@ tasks:
     silent: true
     desc: "Build the project in release build in stripped mode"
 
+  norm:
+    platforms: ["linux"]
+    preconditions:
+      - sh: 'test -d build'
+        msg: "Norm required compile_commands.json files please build the project before !"
+    cmds:
+      - CLANG_TIDY=$(clang-tidy -p ./build src/**/*.c | grep "warning"); [[ ! -z "$CLANG_TIDY" ]] && echo $CLANG_TIDY && exit 1 || exit 0;
+    silent: true
+    desc: "Pass the norm on the project"
+
   build-dev:
     preconditions:
       - sh: '{{if eq OS "windows"}} powershell.exe -Command Test-Path dist {{else}} test ! -d dist {{end}}'

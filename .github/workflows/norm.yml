@@ -1,0 +1,38 @@
+name: Norm
+
+on: [push, pull_request]
+
+permissions:
+  contents: read
+
+jobs:
+  norm: 
+    runs-on: ubuntu-latest
+    steps: 
+      - name: Checkout repository ${{ github.repository }} on a branch ${{ github.ref_name }} triggered by ${{ github.event_name }}
+        uses: actions/checkout@v4
+      
+      - run: "echo the ${{ github.repository }} has been cloned in the container !"
+
+      - name: 🔄 Installing task...
+        uses: arduino/setup-task@v2
+        with:
+          version: 3.x
+
+      - uses: actions/setup-python@v5
+      
+      - name: 🔄 Installing Meson package build system...
+        run: pip install meson
+
+      - name: 🔄 Installing Dependencies...
+        run: |
+          echo "📦 Installing libcriterion-dev, Ninja"
+          sudo apt-get update && sudo apt-get install -y libcriterion-dev ninja-build clang-tidy
+          echo "✅ Dependencies installed!"
+
+      - name: Run build release task...
+        run: |
+          echo "🏗️ Setting up Meson build system..."
+          task build
+          echo "🔄 Check the Norm..."
+          task norm
