@@ -36,7 +36,7 @@ tasks:
       - sh: 'test -d build'
         msg: "Norm required compile_commands.json files please build the project before !"
     cmds:
-      - CLANG_TIDY=$(clang-tidy -p ./build src/**/*.c | grep "warning"); [[ ! -z "$CLANG_TIDY" ]] && echo $CLANG_TIDY && exit 1 || exit 0;
+      - clang-tidy --warnings-as-errors -Iinc -p ./build src/**/*.c
     silent: true
     desc: "Pass the norm on the project"
 
