@@ -53,7 +53,8 @@ incdir = include_directories('inc')
 ######################################
 
 MEMCPY_FILES = files('src/memory/memcpy/memcpy.c')
-CPUID_FILES = files('src/cpuid/cpuid.c')
+
+CPUID_FILES = files('src/cpuid/manufacturer_id.c')
 
 SRCS = MEMCPY_FILES + CPUID_FILES
 
@@ -67,7 +68,6 @@ SRCS = MEMCPY_FILES + CPUID_FILES
 
 
 types_tests = files('tests/types/types_basic_test.c')
-cpuid_tests = files('tests/cpuid/cpuid_test.c')
 
 memory_memcpy_naive = files('tests/memory/memcpy/memcpy_naive/memcpy_naive.c',
   'tests/memory/memcpy/memcpy_naive/memcpy_naive_stack_buf_aligned_small.c',
@@ -77,7 +77,7 @@ memory_memcpy_naive = files('tests/memory/memcpy/memcpy_naive/memcpy_naive.c',
   'tests/memory/memcpy/memcpy_naive/memcpy_naive_stack_buf_unaligned_mid.c',
   'tests/memory/memcpy/memcpy_naive/memcpy_naive_stack_buf_unaligned_big.c')
 
-tests = types_tests + memory_memcpy_naive + cpuid_tests
+tests = types_tests + memory_memcpy_naive
 
 summary({
   'CPU': build_machine.cpu(),

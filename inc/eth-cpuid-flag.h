@@ -19,8 +19,9 @@
 #pragma GCC diagnostic push
 #pragma GCC diagnostic ignored "-Wpedantic"
 
-typedef enum eth_cpuid_eax_flag_t
+typedef enum eth_cpuid_flag_t
 {
+    ETH_CPUID_HIGHEST_FEAT              = 0x0,
     ETH_CPUID_PROC_INFO_FEAT            = 0x1,
     ETH_CPUID_CACHE_TLB_INFO            = 0x2,
     ETH_CPUID_CPU_SERIAL_NUMBER         = 0x3,
@@ -53,24 +54,20 @@ typedef enum eth_cpuid_eax_flag_t
     ETH_CPUID_ENCRYPTED_MEM_CAP         = 0x8000001F,
     ETH_CPUID_EXT_FEAT_ID               = 0x80000021,
     ETH_CPUID_HIGHEST_CENTAUR_EXT_FEAT  = 0xC0000000,
-    ETH_CPUID_CENTAUR_FEAT              = 0xC0000001,    
-} eth_cpuid_eax_flag_t;
+    ETH_CPUID_CENTAUR_FEAT              = 0xC0000001,
+    ETH_CPUID_FEAT_PAGE_1               = 0x1,
+    ETH_CPUID_FEAT_PAGE_2               = 0x2,
+    ETH_CPUID_XSAVE_FEAT_PAGE_1         = 0x0,
+    ETH_CPUID_XSAVE_FEAT_PAGE_2         = 0x1,
+    ETH_CPUID_SGX_PAGE_1                = 0x0,
+    ETH_CPUID_SGX_PAGE_2                = 0x1,
+    ETH_CPUID_SGX_PAGE_3                = 0x2,
+    ETH_CPUID_PTRACE                    = 0x0,
+    ETH_CPUID_SOC_VENDOR                = 0x0,
+    ETH_CPUID_AVX10                     = 0x0,
+    ETH_CPUID_DISCRET_AVX10             = 0x1
+} eth_cpuid_flag_t;
 #pragma GCC diagnostic pop
-
-typedef enum eth_cpuid_ecx_flag_t
-{
-    FEAT_ECX_PAGE_1                     = 0x1,
-    FEAT_ECX_PAGE_2                     = 0x2,
-    XSAVE_FEAT_ECX_PAGE_1               = 0x0,
-    XSAVE_FEAT_ECX_PAGE_2               = 0x1,
-    SGX_ECX_PAGE_1                      = 0x0,
-    SGX_ECX_PAGE_2                      = 0x1,
-    SGX_ECX_PAGE_3                      = 0x2,
-    PROC_TRACE_ECX                      = 0x0,
-    SOC_VENDOR_ATTRIB_ECX               = 0x0,
-    AVX10_FEAT_ECX                      = 0x0,
-    DISCRET_AVX10_FEAT_ECX              = 0x1
-} eth_cpuid_ecx_flag_t;
 
 typedef enum eth_cpuid_reg_index_t
 {
@@ -280,54 +277,5 @@ typedef enum eth_cpuid_feat_flag_t
     ETH_CPUID_EXT_FEAT_MCDT_NO                          = BIN_NUM_1(5)
 } eth_cpuid_feat_flag_t;
 #pragma GCC diagnostic pop
-
-///////////////////////////////////////
-//
-//     TYPEDEFS STRUCT CPUID
-//
-//////////////////////////////////////
-
-typedef struct  eth_cpuid_reg_t         eth_cpuid_reg_t;
-typedef struct  eth_cpuid_feat_ext_t    eth_cpuid_feat_ext_t;
-
-///////////////////////////////////////
-//
-//     STRUCT CPUID REG
-//
-//////////////////////////////////////
-
-struct eth_cpuid_reg_t
-{
-    u32_t   eax;
-    u32_t   ecx;
-    u32_t   edx;
-    u32_t   ebx;
-} __attribute__ ((__packed__));
-
-
-///////////////////////////////////////
-//
-//       CPUID FEAT EXT STRUCT
-//
-//////////////////////////////////////
-
-struct eth_cpuid_feat_ext_t
-{
-    const char              *str;
-    eth_cpuid_eax_flag_t    eax_flg;
-    eth_cpuid_ecx_flag_t    ecx_flg;
-    eth_cpuid_feat_flag_t   flg;
-    eth_cpuid_reg_index_t   reg;
-};
-
-///////////////////////////////////////
-//
-//        CPUID FEAT MACRO
-//
-//////////////////////////////////////
-
-
-#define DEF_BASIC_FEAT(n,index) const eth_cpuid_feat_ext_t  *n = e_cpuid_feat(index,0,0)
-#define DEF_EXT_FEAT(n, index, page) const eth_cpuid_feat_ext_t *n = e_cpuid_feat(index, 1, page)
 
 #endif

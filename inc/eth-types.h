@@ -12,6 +12,7 @@
 #endif
 
 #define GET_(x) #x
+#define CONCAT(x,y) x##y
 
 ///////////////////////////////////////
 //
@@ -20,13 +21,13 @@
 //////////////////////////////////////
 
 #define BIN_NUM_1(x) (1<<(x))
-#define BIN_NUM_2(x) (BIN_NUM_1(x))|(BIN_NUM_1(x+1))
-#define BIN_NUM_3(x) (BIN_NUM_2(x))|(BIN_NUM_1(x+2))
-#define BIN_NUM_4(x) (BIN_NUM_2(x))|(BIN_NUM_2(x+2))
-#define BIN_NUM_5(x) (BIN_NUM_4(x))|(BIN_NUM_1(x+4))
-#define BIN_NUM_6(x) (BIN_NUM_4(x))|(BIN_NUM_2(x+4))
-#define BIN_NUM_7(x) (BIN_NUM_4(x))|(BIN_NUM_3(x+4))
-#define BIN_NUM_8(x) (BIN_NUM_4(x))|(BIN_NUM_4(x+4))
+#define BIN_NUM_2(x) (BIN_NUM_1(x))|(BIN_NUM_1(x|1))
+#define BIN_NUM_3(x) (BIN_NUM_2(x))|(BIN_NUM_1(x|2))
+#define BIN_NUM_4(x) (BIN_NUM_2(x))|(BIN_NUM_2(x|2))
+#define BIN_NUM_5(x) (BIN_NUM_4(x))|(BIN_NUM_1(x|4))
+#define BIN_NUM_6(x) (BIN_NUM_4(x))|(BIN_NUM_2(x|4))
+#define BIN_NUM_7(x) (BIN_NUM_4(x))|(BIN_NUM_3(x|4))
+#define BIN_NUM_8(x) (BIN_NUM_4(x))|(BIN_NUM_4(x|4))
 
 #define ETH_AND(a, b) a & b
 #define ETH_OR(a, b) a | b
@@ -36,6 +37,17 @@
 #define ETH_RSH(a, b) (a >> b)
 #define ETH_ZERO(x) ETH_XOR(x, x)
 #define GET_SIZE(x, y) (sizeof(x)/sizeof(y))
+#define SIZEOF_BITS(x) (sizeof(x) << 3)
+#define ETH_SWAP_BITS(x) (x >> (SIZEOF_BITS(x)>>1)) | (x << (SIZEOF_BITS(x)>>1))
+#define ETH_SWAP(a, b) (a ^= b; b ^= a; a ^= b;)
+#define ETH_UBYTE(x)  (x & 0xFF)
+#define ETH_BYTE(x)   (x & 0x7F)
+#define ETH_UWORD(x)  (x & 0xFFFF)
+#define ETH_WORD(x)   (x & 0x7FFF)
+#define ETH_UDWORD(x) (x & 0xFFFFFFFF)
+#define ETH_DWORD(x)  (x & 0x7FFFFFFF)
+#define ETH_UQWORD(x) (x & 0xFFFFFFFFFFFFFFFF)
+#define ETH_QWORD(x)  (x & 0x7FFFFFFFFFFFFFFF)
 
 ///////////////////////////////////////
 //
@@ -43,7 +55,10 @@
 //
 //////////////////////////////////////
 
-#define STATIC_INLINE static inline __attribute__((always_inline))
+#define STATIC_INLINE static inline
+#define STATIC_ALWAYS_INLINE_NONNULL static inline __attribute__((always_inline, nonnull))
+#define STATIC_ALWAYS_INLINE static inline __attribute__((always_inline))
+#define STATIC_NOINLINE static __attribute__((noinline))
 
 ///////////////////////////////////////
 //
